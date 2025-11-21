@@ -49,9 +49,13 @@
                 </span>
 
                 <span class="flex gap-2 items-center">
-                    <app-button className="border border-secondary-100 size-8 p-0" severity="outline">-</app-button>
-                    <app-input [field]="formTickets().adult"/>
-                    <app-button className="border border-secondary-100 size-8 p-0" severity="outline">+</app-button>
+                    <app-button (click)="adult.update((i) => i-1)" className="border border-secondary-100 size-8 p-0"
+                                severity="outline">-
+                    </app-button>
+                    {{ adult() }}
+                    <app-button (click)="adult.update(i => i+1)" className="border border-secondary-100 size-8 p-0"
+                                severity="outline">+
+                    </app-button>
                 </span>
             </div>
         </div>

@@ -15,9 +15,7 @@ export class Aside {
     feature = input<Feature | undefined>();
     protected readonly dayjs = dayjs;
 
-    formTickets = signal({
-        adult: 1,
-        young: 1,
-        chidlren: 1,
-    });
+    adult = signal(1);
+    young = signal(1);
+    children = signal(1);
 }

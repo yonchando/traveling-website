@@ -1,0 +1,25 @@
+<div class="max-w-330 mx-auto">
+    <header class="text-center flex justify-between items-center p-4">
+        <div class="flex w-fit">
+            <a routerLink="/" class="text-4xl">
+                <img class="w-36 h-auto" src="assets/logos/logo.png" alt="Logo">
+            </a>
+        </div>
+
+        <nav>
+            <ul class="flex">
+                @for (menu of menuItems; track $index) {
+                    <li>
+                        <a [routerLink]="menu.link" 
+                           routerLinkActive="bg-warning text-white"
+                           [class.btn-default]="!menu.active"
+                           [class.btn-primary]="menu.active"
+                           class="btn font-medium">
+                            {{ menu.label }}
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </header>
+</div>

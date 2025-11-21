@@ -1,0 +1,206 @@
+<div class="relative">
+    <app-slider src="assets/images/home/home-slide.png">
+        <div class="text-white text-center">
+            <h2 class="text-7xl font-semibold">Your world of joy</h2>
+            <p class="text-base mt-2.5">From local escapes to far-flung adventures, find what makes you happy
+                anytime,
+                anywhere</p>
+        </div>
+    </app-slider>
+
+    <div class="py-10 bg-secondary px-20">
+        <div class="content">
+            <div class="flex justify-between">
+                <h2 class="header header-2">Featured Trips</h2>
+                <div class="flex gap-2">
+                    @for (cat of categories(); track cat.id) {
+                        <app-button (click)="category.set(cat.id)"
+                                    [severity]="cat.id === category() ? 'primary' :'default'">{{ cat.title }}
+                        </app-button>
+                    }
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
+                @for (feature of features(); track feature.id) {
+                    @if (feature.category === category()) {
+                        <app-card [imageUrl]="feature.imageUrl" [tag]="feature.tag"
+                                  [price]="feature.price"
+                                  [duration]="feature.duration"
+                                  [title]="feature.title"/>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white pt-25 px-20">
+        <div class="content">
+            <div class="flex justify-between">
+                <h2 class="header header-2">Trending Destinations</h2>
+                <div>
+                    <app-button link="/page-list">See all</app-button>
+                </div>
+            </div>
+
+            <div class="grid grid-rows-2 grid-cols-7 gap-6 mt-10">
+                <app-thumbnail width="w-full" height="h-full" className="col-span-2"
+                               src="assets/images/home/links/image-01.png" title="Cruises"/>
+                <app-thumbnail width="w-full" height="h-full" className="col-span-3"
+                               src="assets/images/home/links/image-02.png" title="Beach Tours"/>
+                <app-thumbnail width="w-full" height="h-full" className="row-span-2 col-span-2"
+                               src="assets/images/home/links/image-03.png" title="City Tours"/>
+                <app-thumbnail width="w-full" height="h-full" className="col-span-2"
+                               src="assets/images/home/links/image-04.png" title="Museum Tour"/>
+                <app-thumbnail width="w-full" height="h-full" className="col-span-1"
+                               src="assets/images/home/links/image-05.png" title="Cultural Tour"/>
+                <app-thumbnail width="w-full" height="h-full" className="col-span-2"
+                               src="assets/images/home/links/image-06.png" title="Cultural Tour"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-10 content">
+        <app-hero-card bg="assets/images/bg.png">
+            <div class="flex flex-col justify-center items-center">
+                <div class="flex flex-col">
+                    <h2 class="header header-2">Grab up to
+                        <span class="text-warning">35% off</span>
+                        <br>
+                        on your favorite
+                        Destination
+                    </h2>
+                    <p>Limited time offer, don't miss the opportunity</p>
+                    <app-button class="mt-6" severity="primary">BOOK NOW</app-button>
+                </div>
+            </div>
+
+            <div class="relative">
+                <app-shade shade="hero-card" className="absolute inset-0 h-full -left-2"/>
+                <img class="w-full h-full" src="assets/images/home/hero-card.png" alt="Hero Card Image">
+            </div>
+        </app-hero-card>
+    </div>
+
+    <div class="bg-white pt-25 px-20">
+        <div class="content">
+            <div class="flex justify-between">
+                <h2 class="header header-2">Top Attractions</h2>
+                <div>
+                    <app-button>See all</app-button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-4 gap-6 mt-10">
+                @for (topA of topAttractions(); track topA.id) {
+                    <app-card-column
+                            [title]="topA.title"
+                            [imageUrl]="topA.imageUrl"
+                            [count]="topA.visitedCount"/>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="py-25 bg-cover bg-center bg-no-repeat"
+         style="background-image: url('assets/images/home/reviews-frame.png')">
+        <div class="content">
+            <h2 class="header header-3 text-center">Customer Reviews</h2>
+
+            <div class="mt-10 flex justify-center items-center flex-col">
+                <div class="relative">
+                    <svg class="absolute top-0 left-0" width="28" height="28" viewBox="0 0 46 46" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <rect width="46" height="46" rx="23" fill="#EB662B"/>
+                        <g clip-path="url(#clip0_6108_1519)">
+                            <path d="M28.3165 17.3389C27.1013 18.3185 25.9367 19.9348 24.7722 22.1389C23.6582 24.3429 23 26.7429 22.8481 29.3389H27.4557C27.4051 25.3715 28.6203 21.747 31 18.4164L28.3165 17.3389ZM20.519 17.3389C19.2532 18.3185 18.0886 19.9348 16.924 22.1389C15.8101 24.3429 15.1519 26.7429 15 29.3389H19.6076C19.557 25.3715 20.7722 21.6981 23.2025 18.4164L20.519 17.3389Z"
+                                  fill="white"/>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_6108_1519">
+                                <rect width="16" height="13" fill="white" transform="translate(15 16.5)"/>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    <img src="assets/images/profile/image.png" alt="">
+                </div>
+
+                <p class="text-warning py-6">Excellent Service!</p>
+
+                <p class="text-center">
+                    I had an amazing experience with this company. The service was <br>
+                    top-notch, and the staff was incredibly friendly. I highly <br>
+                    recommend them! <br>
+                </p>
+
+                <div class="mt-6 flex flex-col gap-2 justify-center">
+                    <span class="">John Smith</span>
+                    <span class="text-xs text-center">Traveler</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content mt-10">
+        <div class="flex justify-between">
+            <h2 class="header header-2">Find Popular Tours</h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
+            @for (feature of features()?.slice(0, 11); track feature.id) {
+                @if (feature.id >= 4) {
+                    <app-card [imageUrl]="feature.imageUrl" [tag]="feature.tag"
+                              [price]="feature.price"
+                              [duration]="feature.duration"
+                              [title]="feature.title"/>
+                }
+            }
+        </div>
+    </div>
+
+    <div class="content">
+        <app-hero-card bg="assets/images/bg-1.png">
+            <div class="flex flex-col justify-center items-center">
+                <div class="flex flex-col gap-4 text-white">
+                    <h2 class="header header-2 ">
+                        Get 5% off your 1st <br>
+                        app booking
+                    </h2>
+                    <p>Booking's better on the app. Use promo code
+                        "TourBooking" to save!</p>
+
+                    <div class="mt-8">
+                        <span>Get a magic link sent to your email</span>
+
+                        <div class="flex gap-2 items-center mt-3">
+                            <app-input class="w-full" placeholder="Email"/>
+                            <app-button severity="primary" className="rounded-xl h-15 px-8">
+                                Send
+                            </app-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <img src="assets/images/home/discounts/mobile.png" alt="">
+            </div>
+        </app-hero-card>
+    </div>
+
+    <div class="content mt-10">
+        <div class="flex justify-between">
+            <h2 class="header header-2">Travel Article</h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
+            @for (article of travelArticles(); track article.id) {
+                <app-card-row [imageUrl]="article.imageUrl"
+                              [date]="article.date ?? ''"
+                              [author]="article.author ?? ''"
+                              [tag]="article.tag"
+                              [title]="article.title"/>
+            }
+        </div>
+    </div>
+</div>

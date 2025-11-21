@@ -1,0 +1,94 @@
+<footer class="bg-primary relative min-h-[516px] mt-10">
+    <app-shade shade="footer" class="absolute -top-2 inset-x-0"/>
+
+    <div class="content pt-20 px-20 text-white">
+        <div class="grid grid-cols-7 gap-10">
+            <div class="col-span-2">
+                <h2 class="header header-3">Contact</h2>
+                <p class="mt-8">
+                    328 Queensberry Street, North Melbourne VIC3051,
+                    Australia. <br>
+                    <a href="#">hi&#64;traval.com</a>
+                </p>
+            </div>
+            <div class="col-start-4">
+                <h2 class="header header-3">Company</h2>
+                <ul class="flex flex-col gap-4 mt-8">
+                    <li>About Us</li>
+                    <li>Tour Reviews</li>
+                    <li>Contact Us</li>
+                    <li>Travel Guides</li>
+                    <li>Data Policy</li>
+                    <li>Cookie Policy</li>
+                    <li>Legal</li>
+                    <li>Sitemap</li>
+                </ul>
+            </div>
+            <div class="">
+                <h2 class="header header-3">Support</h2>
+                <ul class="flex flex-col gap-4 mt-8">
+                    <li>Get in Touch</li>
+                    <li>Help center</li>
+                    <li>Live chat</li>
+                    <li>How it works</li>
+                </ul>
+            </div>
+            <div class="col-span-2">
+                <h2 class="header header-3">Newsletter</h2>
+                <p class="mt-8">
+                    Subscribe to the free newsletter and stay
+                    up to date
+                </p>
+
+                <form (ngSubmit)="subscribe()" class="mt-4">
+                    <div class="">
+                        <div class="relative">
+                            <app-input [(ngModel)]="email" name="email" placeholder="Enter your email"/>
+                            <app-button type="submit" className="absolute right-0 top-1/2 -translate-y-1/2 hover:bg-transparent hover:text-primary">
+                                Send
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                          d="M16.2838 7.69012L9.99067 14.0253L2.62294 9.49052C1.65751 8.89619 1.85319 7.42997 2.94078 7.1143L20.3358 2.0527C21.325 1.76642 22.2396 2.69384 21.9434 3.68765L16.7822 21.0647C16.4589 22.1521 15.0092 22.3404 14.4232 21.3695L9.99067 14.0253"
+                                          fill="url(#paint0_linear_3_3972)"/>
+                                    <path d="M16.2838 7.69012L9.99067 14.0253L2.62294 9.49052C1.65751 8.89619 1.85319 7.42997 2.94078 7.1143L20.3358 2.0527C21.325 1.76642 22.2396 2.69384 21.9434 3.68765L16.7822 21.0647C16.4589 22.1521 15.0092 22.3404 14.4232 21.3695L9.99067 14.0253"
+                                          stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <defs>
+                                        <linearGradient id="paint0_linear_3_3972" x1="22" y1="22" x2="1.67423"
+                                                        y2="21.6633" gradientUnits="userSpaceOnUse">
+                                            <stop stop-color="#888BF4"/>
+                                            <stop offset="1" stop-color="#5151C6"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </app-button>
+                        </div>
+                        @if (isSubscribed()) {
+                            <span class="text-xs">Thanks you for your subscribed.</span>
+                        }
+
+                        @if (error()) {
+                            <span class="text-xs text-warning">{{ error() }}</span>
+                        }
+                    </div>
+                </form>
+
+
+                <div class="mt-10">
+                    <h2 class="header header-3">Mobile Apps</h2>
+                    <ul class="flex flex-col gap-4 mt-4">
+                        <li class="flex gap-2 items-center">
+                            <icon-app-store/>
+                            iOS App
+                        </li>
+                        <li class="flex gap-2 items-center">
+                            <icon-google-play/>
+                            Android App
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>

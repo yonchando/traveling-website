@@ -1,0 +1,101 @@
+<app-slider src="assets/images/home/home-slide.png" bottomClassName="bg-white">
+    <div class="text-white text-center">
+        <h2 class="text-7xl font-semibold">Your world of joy</h2>
+        <p class="text-base mt-2.5">From local escapes to far-flung adventures, find what makes you happy
+            anytime,
+            anywhere</p>
+    </div>
+</app-slider>
+
+<div class="content px-10">
+    <p>
+        Home > {{ feature()?.category }} > {{ feature()?.title }}
+    </p>
+
+    <div class="mt-8">
+        <h2 class="header header-2">{{ feature()?.title }}</h2>
+
+        <div class="mt-4">
+            <app-rate-star [rate]="feature()?.rating" [count]="feature()?.reviewCount"/>
+            <span class="px-3 text-secondary-100">|</span>
+            <span class="">
+                {{ feature()?.tag }}
+            </span>
+        </div>
+
+        <div class="grid grid-cols-12 gap-2 grid-rows-2 mt-4">
+            <app-thumbnail src="assets/images/home/links/image-06.png" className="col-span-6 row-span-2"/>
+            <app-thumbnail src="assets/images/home/home-slide.png" className="col-span-6 h-[15.625rem]"/>
+            <app-thumbnail src="assets/images/home/articles/image.png" className="col-span-3"/>
+            <app-thumbnail src="assets/images/home/features/image-2.png" className="col-span-3"/>
+        </div>
+
+        <div class="flex flex-col gap-4 mt-10 lg:flex-row">
+            <div class="w-full ">
+                <div class="flex justify-around ">
+                    <div class="flex gap-2 mt-8">
+                        <div class="bg-secondary-100 p-3 rounded-lg text-primary">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.088 6.912C15.684 5.508 13.848 4.8 12 4.8V12L6.912 17.088C9.72 19.896 14.28 19.896 17.1 17.088C19.908 14.28 19.908 9.72 17.088 6.912ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.696 21.6 2.4 17.304 2.4 12C2.4 6.696 6.696 2.4 12 2.4C17.304 2.4 21.6 6.696 21.6 12C21.6 17.304 17.304 21.6 12 21.6Z"
+                                      fill="currentColor"/>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <p class="font-medium">Duration</p>
+                            <p class="text-dark mt-2">{{ feature()?.duration }}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 mt-8">
+                        <div class="bg-secondary-100 p-3 rounded-lg text-primary">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.088 6.912C15.684 5.508 13.848 4.8 12 4.8V12L6.912 17.088C9.72 19.896 14.28 19.896 17.1 17.088C19.908 14.28 19.908 9.72 17.088 6.912ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.696 21.6 2.4 17.304 2.4 12C2.4 6.696 6.696 2.4 12 2.4C17.304 2.4 21.6 6.696 21.6 12C21.6 17.304 17.304 21.6 12 21.6Z"
+                                      fill="currentColor"/>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <p class="font-medium">Duration</p>
+                            <p class="text-dark mt-2">{{ feature()?.duration }}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 mt-8">
+                        <div class="bg-secondary-100 p-3 rounded-lg text-primary">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.088 6.912C15.684 5.508 13.848 4.8 12 4.8V12L6.912 17.088C9.72 19.896 14.28 19.896 17.1 17.088C19.908 14.28 19.908 9.72 17.088 6.912ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.696 21.6 2.4 17.304 2.4 12C2.4 6.696 6.696 2.4 12 2.4C17.304 2.4 21.6 6.696 21.6 12C21.6 17.304 17.304 21.6 12 21.6Z"
+                                      fill="currentColor"/>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <p class="font-medium">Duration</p>
+                            <p class="text-dark mt-2">{{ feature()?.duration }}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 mt-8">
+                        <div class="bg-secondary-100 p-3 rounded-lg text-primary">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.088 6.912C15.684 5.508 13.848 4.8 12 4.8V12L6.912 17.088C9.72 19.896 14.28 19.896 17.1 17.088C19.908 14.28 19.908 9.72 17.088 6.912ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.696 21.6 2.4 17.304 2.4 12C2.4 6.696 6.696 2.4 12 2.4C17.304 2.4 21.6 6.696 21.6 12C21.6 17.304 17.304 21.6 12 21.6Z"
+                                      fill="currentColor"/>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <p class="font-medium">Duration</p>
+                            <p class="text-dark mt-2">{{ feature()?.duration }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <app-aside [feature]="feature()"/>
+        </div>
+    </div>
+</div>

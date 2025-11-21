@@ -1,2 +1,100 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss';
+
+@theme {
+    --color-body: #05073C;
+    --color-primary: #4A43C4;
+    --color-warning: #EB662B;
+    --color-secondary: #FEF7F4;
+    --color-secondary-100: #E7E6E6;
+    --color-dark: #717171;
+
+    --radius-2\.5xl: 1.25rem;
+}
+
+@layer base {
+    body {
+        @apply text-sm;
+        font-family: "Inter", "Poppins", sans-serif;
+    }
+}
+
+
+@layer components {
+
+    .header {
+        @apply font-bold ;
+
+        &.header-2 {
+            @apply text-3xl leading-11;
+        }
+
+        &.header-3 {
+            @apply text-xl leading-6;
+        }
+
+        &.header-4 {
+            @apply text-base leading-6;
+        }
+    }
+
+    .content {
+        @apply max-w-[1350px] mx-auto;
+    }
+
+    .btn {
+        @apply inline-flex gap-2 items-center rounded-full px-6 py-3 cursor-pointer justify-center;
+
+        &.btn-primary {
+            @apply bg-primary text-white;
+
+            &:hover {
+                @apply bg-warning text-white;
+            }
+        }
+
+        &.btn-default {
+            @apply bg-transparent text-body;
+
+            @variant hover {
+                @apply bg-warning text-white;
+            }
+        }
+
+        &.btn-outline {
+            @apply bg-transparent text-body p-0;
+        }
+
+        &.btn-warning {
+            @apply bg-warning text-white;
+        }
+
+        &.btn-light {
+            @apply bg-white text-warning;
+
+            &:hover {
+                @apply bg-warning text-white;
+            }
+        }
+
+    }
+
+
+    .form-input {
+        @apply appearance-none border border-secondary-100 rounded-xl h-12 w-full bg-white px-4 caret-warning text-dark font-medium;
+
+        @variant focus {
+            @apply outline-none ring-0 ring-warning;
+        }
+
+        @variant invalid {
+            @apply border-warning;
+        }
+
+        @variant placeholder {
+            @apply text-dark/35;
+        }
+
+    }
+
+}

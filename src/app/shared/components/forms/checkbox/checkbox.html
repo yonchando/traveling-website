@@ -1,0 +1,12 @@
+<label [for]="id()" class="inline-flex items-center gap-3">
+    <input
+        class="form-check"
+        [disabled]="disabled()"
+        type="checkbox"
+        [id]="id()"
+        [value]="value()"
+        (blur)="onBlur()"
+        (input)="onInput($event)"
+        [checked]="isChecked()" />
+    <span (click)="onClickPlaceholder()" class="text-sm">{{ label() }}</span>
+</label>

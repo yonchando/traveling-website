@@ -1,0 +1,59 @@
+<div class="w-90 border rounded-xl border-secondary-100 p-6">
+    <p>
+        From
+        <span class="font-semibold text-lg">{{ feature()?.price }}</span>
+    </p>
+
+    <div class="rounded-xl border border-secondary-100 divide-y divide-secondary-100 mt-6">
+        <div class="flex gap-2 p-2">
+            <div class="bg-secondary-100 p-3 rounded-lg text-primary">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.088 6.912C15.684 5.508 13.848 4.8 12 4.8V12L6.912 17.088C9.72 19.896 14.28 19.896 17.1 17.088C19.908 14.28 19.908 9.72 17.088 6.912ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.696 21.6 2.4 17.304 2.4 12C2.4 6.696 6.696 2.4 12 2.4C17.304 2.4 21.6 6.696 21.6 12C21.6 17.304 17.304 21.6 12 21.6Z"
+                          fill="currentColor"/>
+                </svg>
+            </div>
+
+            <div>
+                <p class="font-medium">From</p>
+                <p class="text-dark mt-1">
+                    {{ dayjs().format('MMMM DD') }}
+                    ~ {{ dayjs().add(7, 'day').format('MMMM DD') }}
+                </p>
+            </div>
+        </div>
+
+        <div class="flex gap-2 p-2">
+            <div class="bg-secondary-100 p-3 rounded-lg text-primary">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.088 6.912C15.684 5.508 13.848 4.8 12 4.8V12L6.912 17.088C9.72 19.896 14.28 19.896 17.1 17.088C19.908 14.28 19.908 9.72 17.088 6.912ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.696 21.6 2.4 17.304 2.4 12C2.4 6.696 6.696 2.4 12 2.4C17.304 2.4 21.6 6.696 21.6 12C21.6 17.304 17.304 21.6 12 21.6Z"
+                          fill="currentColor"/>
+                </svg>
+            </div>
+
+            <div>
+                <p class="font-medium">Time</p>
+                <p class="text-dark mt-1">
+                    {{ dayjs().format('hh:mm A') }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6">
+        <h3 class="header text-lg">Tickets</h3>
+
+        <div>
+            <div class="flex items-center gap-2 mt-4 justify-between">
+                <span>
+                    Adult (18+ years) $282.00
+                </span>
+
+                <span class="flex gap-2 items-center">
+                    <app-button className="border border-secondary-100 size-8 p-0" severity="outline">-</app-button>
+                    <app-input [field]="formTickets().adult"/>
+                    <app-button className="border border-secondary-100 size-8 p-0" severity="outline">+</app-button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>   

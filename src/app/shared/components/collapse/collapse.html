@@ -1,0 +1,16 @@
+<div class="">
+    <ng-container [ngTemplateOutlet]="btnRef() || defaultBtn" 
+                  [ngTemplateOutletContext]="{ $implicit: toggleContent }"
+    />
+
+    <ng-template #defaultBtn>
+        <app-button severity="outline" type="button" (click)="toggleContent()">
+            <ng-content select=".btn-trigger"/>
+            {{ label() }}
+        </app-button>
+    </ng-template>
+
+    <div [class]="getClasses()">
+        <ng-content/>
+    </div>
+</div>

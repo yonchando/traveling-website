@@ -1,0 +1,35 @@
+<div class="flex justify-between">
+    <h3>{{ getFeatures().length }} results</h3>
+</div>
+
+@for (f of getFeatures(); track $index) {
+    <div class="grid grid-cols-12 gap-8 border border-secondary-100 p-5 rounded-2xl mt-8">
+        <app-thumbnail className="col-span-4" [src]="f.imageUrl"/>
+
+        <div class="col-span-5 flex flex-col">
+            <span class="text-xs">{{ f.tag }}</span>
+            <a [routerLink]="['/page-list/detail/', f.title]">
+                <h3 class="header header-3 mt-2 text-ellipsis max-w-full">{{ f.title.length > 60 ? (f.title.slice(0, 60) + '...') : f.title }}</h3>
+            </a>
+            <p class="mt-4">
+                {{ f.content }}
+            </p>
+            <div class="flex gap-4 mt-auto">
+                <app-rate-star [rate]="f.rating" [count]="f.reviewCount"/>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-2 items-center border-l border-secondary-100 col-span-3">
+            <span>{{ f.duration }}</span>
+            <div class="mt-auto flex flex-col items-center gap-2">
+                @if (f.originalPrice) {
+                    <span class="line-through text-secondary-100">{{ f.originalPrice }}</span>
+                }
+                <span>From {{ f.price }}</span>
+                <app-button (click)="router.navigate(['page-list/detail/',f.title])" className="mt-4"
+                            severity="primary">View Details
+                </app-button>
+            </div>
+        </div>
+    </div>
+}

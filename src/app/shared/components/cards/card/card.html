@@ -1,0 +1,27 @@
+<div [class]="getClass()">
+    <img class="w-full max-w-full h-auto" [src]="imageUrl()" [alt]="title()" aria-hidden="true">
+
+    <div class="bg-white py-2.5 px-6 rounded-2.5xl relative -top-4 pt-8 min-h-[190px] flex flex-col h-full">
+        <div class="text-sm mb-2 text-dark">
+            <ng-content select="card-tag">
+                {{ tag() }}
+            </ng-content>
+        </div>
+        <h3 class="header header-4 overflow-hidden text-ellipsis">
+            {{ getTitle() }}
+        </h3>
+        @if (price()) {
+            <div class="mt-auto">
+                <span class="border-b w-full inline-block border-b-secondary-100"></span>
+                <div class="flex justify-between items-center py-4 ">
+                    <span>{{ duration() }}</span>
+                    <span>
+                From
+                <span class="font-bold">{{ price() }}</span>
+            </span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

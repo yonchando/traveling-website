@@ -31,7 +31,17 @@ export class Thumbnail {
     width = input('');
     height = input('');
 
-    getImageClass = computed(() => clsx('invisible h-auto w-full rounded-xl', this.width(), this.height()));
+    getImageClass = computed(() =>
+        clsx(
+            'invisible rounded-xl',
+            {
+                'h-auto': !this.height(),
+                'w-full': !this.width(),
+            },
+            this.width(),
+            this.height(),
+        ),
+    );
 
     getClassName = computed(() => clsx(this.className()));
 }

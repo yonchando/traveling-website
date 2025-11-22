@@ -46,6 +46,7 @@
 
     .btn {
         @apply inline-flex gap-2 items-center rounded-full px-6 py-3 cursor-pointer justify-center;
+        font-size: clamp(0.75rem, 1vw, 0.875rem);
 
         &.btn-primary {
             @apply bg-primary text-white;

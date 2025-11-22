@@ -2,27 +2,30 @@
     <p class="mt-1">
         ({{ rate().toFixed(1) }}) of {{ count() }}
     </p>
-    @for (_ of range(0, Math.floor(rate())); track $index) {
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14.916 9.6L12 0L9.084 9.6H0L7.416 14.892L4.596 24L12 18.372L19.416 24L16.596 14.892L24 9.6H14.916Z"
-                  fill="currentColor"/>
-        </svg>
-    }
+    
+    <div class="flex gap-2">
+        @for (_ of range(0, Math.floor(rate())); track $index) {
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.916 9.6L12 0L9.084 9.6H0L7.416 14.892L4.596 24L12 18.372L19.416 24L16.596 14.892L24 9.6H14.916Z"
+                      fill="currentColor"/>
+            </svg>
+        }
 
-    @if (getHalfStar()) {
-        <svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M24 8.76421L15.372 8.01368L12 0L8.628 8.02579L0 8.76421L6.552 14.49L4.584 23L12 18.4847L19.416 23L17.46 14.49L24 8.76421ZM12 16.2211V4.96316L14.052 9.85368L19.308 10.3137L15.324 13.8L16.524 18.9811L12 16.2211Z"
-                  fill="currentColor"/>
-        </svg>
-    }
+        @if (getHalfStar()) {
+            <svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 8.76421L15.372 8.01368L12 0L8.628 8.02579L0 8.76421L6.552 14.49L4.584 23L12 18.4847L19.416 23L17.46 14.49L24 8.76421ZM12 16.2211V4.96316L14.052 9.85368L19.308 10.3137L15.324 13.8L16.524 18.9811L12 16.2211Z"
+                      fill="currentColor"/>
+            </svg>
+        }
 
-    @for (_ of range(0, Math.floor(5 - this.rate())); track $index) {
-        <svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M24 8.76421L15.372 8.01368L12 0L8.628 8.02579L0 8.76421L6.552 14.49L4.584 23L12 18.4847L19.416 23L17.46 14.49L24 8.76421ZM12 16.2211L7.488 18.9689L8.688 13.7879L4.704 10.3016L9.96 9.84158L12 4.96316L14.052 9.85368L19.308 10.3137L15.324 13.8L16.524 18.9811L12 16.2211Z"
-                  fill="currentColor"/>
-        </svg>
+        @for (_ of range(0, Math.floor(5 - this.rate())); track $index) {
+            <svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 8.76421L15.372 8.01368L12 0L8.628 8.02579L0 8.76421L6.552 14.49L4.584 23L12 18.4847L19.416 23L17.46 14.49L24 8.76421ZM12 16.2211L7.488 18.9689L8.688 13.7879L4.704 10.3016L9.96 9.84158L12 4.96316L14.052 9.85368L19.308 10.3137L15.324 13.8L16.524 18.9811L12 16.2211Z"
+                      fill="currentColor"/>
+            </svg>
 
-    }
+        }
+    </div>
 } @else {
     <span>
         Not reviews yet.

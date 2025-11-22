@@ -21,7 +21,7 @@ export class RateStar {
     });
 
     getClass = computed(() =>
-        clsx('inline-flex gap-2 items-center text-warning', this.className()),
+        clsx('inline-flex flex-col-reverse items-center gap-2 text-warning md:flex-row', this.className()),
     );
 
     range(from: number = 0, to: number) {

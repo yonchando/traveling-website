@@ -24,14 +24,10 @@
         </div>
 
         <div class="grid grid-cols-12 gap-2 grid-rows-2 mt-4">
-            <app-thumbnail src="assets/images/home/links/image-06.png"
-                           className="col-span-12 md:col-span-6 lg:col-span-6 lg:row-span-2"/>
-            <app-thumbnail src="assets/images/home/home-slide.png"
-                           className="col-span-12 md:col-span-6 lg:col-span-6 lg:h-[15.625rem]"/>
-            <app-thumbnail src="assets/images/home/articles/image.png"
-                           className="col-span-12 md:col-span-6 lg:col-span-3"/>
-            <app-thumbnail src="assets/images/home/features/image-2.png"
-                           className="col-span-12 md:col-span-6 lg:col-span-3"/>
+            @for (i of getThumbnails(); track $index) {
+                <app-thumbnail [imageUrl]="i.imageUrl"
+                               [className]="i.className"/>
+            }
         </div>
 
         <div class="flex flex-col lg:flex-row gap-8 mt-8">

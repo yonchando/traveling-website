@@ -8,9 +8,9 @@ import clsx from 'clsx';
         <div
             class="relative h-full rounded-xl bg-cover bg-center bg-no-repeat"
             [style]="{
-                'background-image': 'url(' + src() + ')',
+                'background-image': 'url(' + imageUrl() + ')',
             }">
-            <img [class]="getImageClass()" [src]="src()" alt="title()" />
+            <img [class]="getImageClass()" [src]="imageUrl()" alt="title()" />
             <span class="absolute bottom-4 left-4 w-full max-w-full text-wrap text-white">
                 <span class="relative">
                     {{ title() }}
@@ -23,7 +23,7 @@ import clsx from 'clsx';
     },
 })
 export class Thumbnail {
-    src = input<string | undefined>('');
+    imageUrl = input<string | undefined>('');
     title = input('');
 
     className = input<string>('');

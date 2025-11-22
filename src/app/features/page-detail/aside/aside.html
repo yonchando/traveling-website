@@ -1,4 +1,4 @@
-<div class="w-90 border rounded-xl border-secondary-100 p-6">
+<div class="border rounded-xl border-secondary-100 p-6">
     <p>
         From
         <span class="font-semibold text-lg">{{ feature()?.price }}</span>
@@ -31,7 +31,7 @@
             </div>
 
             <div>
-                <p class="font-medium">Time</p>
+                <p class="font-medium">TimeIcon</p>
                 <p class="text-dark mt-1">
                     {{ dayjs().format('hh:mm A') }}
                 </p>
@@ -42,22 +42,86 @@
     <div class="mt-6">
         <h3 class="header text-lg">Tickets</h3>
 
-        <div>
-            <div class="flex items-center gap-2 mt-4 justify-between">
+        <div class="flex flex-col gap-3 mt-4">
+            <div class="flex items-center gap-2 justify-between">
                 <span>
-                    Adult (18+ years) $282.00
+                    Adult (18+ years) $200.00
                 </span>
 
                 <span class="flex gap-2 items-center">
-                    <app-button (click)="adult.update((i) => i-1)" className="border border-secondary-100 size-8 p-0"
+                    <app-button (click)="updateTicket(adult,'-')"
+                                className="border border-secondary-100 size-8 p-0"
                                 severity="outline">-
                     </app-button>
                     {{ adult() }}
-                    <app-button (click)="adult.update(i => i+1)" className="border border-secondary-100 size-8 p-0"
+                    <app-button (click)="updateTicket(adult, '+')" className="border border-secondary-100 size-8 p-0"
+                                severity="outline">+
+                    </app-button>
+                </span>
+            </div>
+            <div class="flex items-center gap-2 justify-between">
+                <span>
+                    Youth (13-17 years) $150.00
+                </span>
+
+                <span class="flex gap-2 items-center">
+                    <app-button (click)="updateTicket(young,'-')"
+                                className="border border-secondary-100 size-8 p-0"
+                                severity="outline">-
+                    </app-button>
+                    {{ young() }}
+                    <app-button (click)="updateTicket(young, '+')" className="border border-secondary-100 size-8 p-0"
+                                severity="outline">+
+                    </app-button>
+                </span>
+            </div>
+            <div class="flex items-center gap-2 justify-between">
+                <span>
+                    Children (0-12 years) $80.00
+                </span>
+
+                <span class="flex gap-2 items-center">
+                    <app-button (click)="updateTicket(children,'-')"
+                                className="border border-secondary-100 size-8 p-0"
+                                severity="outline">-
+                    </app-button>
+                    {{ children() }}
+                    <app-button (click)="updateTicket(children, '+')" className="border border-secondary-100 size-8 p-0"
                                 severity="outline">+
                     </app-button>
                 </span>
             </div>
         </div>
     </div>
-</div>   
+
+    <div class="mt-6">
+        <h3 class="header text-lg">Add Extra</h3>
+
+        <div class="flex flex-col gap-3 mt-4">
+            <div class="flex items-center gap-2 justify-between">
+                <app-checkbox (change)="addExtra($event,1)" label="Add Service per Booking"/>
+
+                <span class="flex gap-2 items-center">$40</span>
+            </div>
+
+            <div class="flex items-center gap-2 justify-between">
+                <app-checkbox (change)="addExtra($event,2)">
+                    Add Service per person <br> Adult: $17.00 - Youth: $14.00
+                </app-checkbox>
+
+                <span class="flex gap-2 items-center">$40</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="border-b border-b-secondary-100 my-4"></div>
+
+    <div class="flex justify-between items-center">
+        <span class="text-xl font-bold">Total:</span>
+        <span class="text-xl font-bold">${{ total() }}</span>
+    </div>
+    
+    <div>
+        <app-button className="mt-6 w-full rounded-xl" severity="primary">Book Now</app-button>
+    </div>
+</div>

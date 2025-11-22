@@ -1,11 +1,23 @@
-import { booleanAttribute, Component, ElementRef, forwardRef, input, output, signal, viewChild } from "@angular/core";
-import { CheckboxControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { clsx } from "clsx";
+import {
+    booleanAttribute,
+    Component,
+    ElementRef,
+    forwardRef,
+    input,
+    output,
+    signal,
+    viewChild,
+} from '@angular/core';
+import {
+    CheckboxControlValueAccessor,
+    NG_VALUE_ACCESSOR,
+} from '@angular/forms';
+import { clsx } from 'clsx';
 
 @Component({
-    selector: "app-checkbox",
+    selector: 'app-checkbox',
     imports: [],
-    templateUrl: "./checkbox.html",
+    templateUrl: './checkbox.html',
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -14,12 +26,12 @@ import { clsx } from "clsx";
         },
     ],
     host: {
-        "[class]": "clsx('flex items-center gap-2')",
+        '[class]': "clsx('flex items-center gap-2')",
     },
 })
 export class Checkbox extends CheckboxControlValueAccessor {
-    readonly id = input("");
-    readonly label = input("");
+    readonly id = input('');
+    readonly label = input('');
 
     disabled = signal(false);
     required = input(false, {
@@ -30,6 +42,8 @@ export class Checkbox extends CheckboxControlValueAccessor {
     isChecked = signal(false);
 
     formControl = signal<any>(null);
+
+    inputElement = viewChild<ElementRef<HTMLInputElement>>('inputElement');
 
     override writeValue(value: any) {
         this.isChecked.set(value === this.value() || !!value);
@@ -53,13 +67,15 @@ export class Checkbox extends CheckboxControlValueAccessor {
 
     protected onClickPlaceholder() {
         if (this.isChecked()) {
-            //unchecked
             this.isChecked.set(false);
             this.onChange(undefined);
         } else {
-            // checked
             this.isChecked.set(true);
             this.setValue();
+        }
+
+        if (this.inputElement()) {
+            this.inputElement()?.nativeElement.click();
         }
     }
 

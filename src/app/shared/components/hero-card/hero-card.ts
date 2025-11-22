@@ -1,4 +1,5 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
+import clsx from 'clsx';
 
 @Component({
     selector: 'app-hero-card',
@@ -12,4 +13,7 @@ import { Component, input } from '@angular/core';
 })
 export class HeroCard {
     bg = input();
+    className = input('');
+
+    getClassName = computed(() => clsx('hero-card grid grid-cols-2 rounded-xl', this.className()));
 }

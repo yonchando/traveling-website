@@ -1,0 +1,26 @@
+<div class="mt-6">
+    <h2 class="header header-2">FQA</h2>
+
+    <div class="mt-6 flex flex-col gap-6">
+        @for (q of questions(); track $index; let i = $index) {
+            <div class="border border-secondary-100 rounded-xl p-6 shadow">
+                <app-button (click)="openAnswer(i)" severity="outline"
+                            className="flex items-center justify-between w-full">
+                    {{ q.question }}
+                    @if (i === openIndex()) {
+                        <span class="dot bg-warning"></span>
+                    } @else {
+                        <span class="dot bg-warning/10"></span>
+                    }
+                </app-button>
+
+                @if (i === openIndex()) {
+                    <p class="mt-6" animate.enter="fade-in">
+                        {{ q.answer }}
+                    </p>
+                }
+            </div>
+        }
+
+    </div>
+</div>

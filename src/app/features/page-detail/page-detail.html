@@ -1,4 +1,4 @@
-<app-slider src="assets/images/home/home-slide.png" bottomClassName="bg-white">
+<app-slider src="assets/images/home/links/image-06.png" bottomClassName="bg-white">
     <div class="text-white text-center">
         <h2 class="text-7xl font-semibold">Your world of joy</h2>
         <p class="text-base mt-2.5">From local escapes to far-flung adventures, find what makes you happy
@@ -7,7 +7,7 @@
     </div>
 </app-slider>
 
-<div class="content px-10">
+<div class="content px-10 relative">
     <p>
         Home > {{ feature()?.category }} > {{ feature()?.title }}
     </p>
@@ -24,78 +24,196 @@
         </div>
 
         <div class="grid grid-cols-12 gap-2 grid-rows-2 mt-4">
-            <app-thumbnail src="assets/images/home/links/image-06.png" className="col-span-6 row-span-2"/>
-            <app-thumbnail src="assets/images/home/home-slide.png" className="col-span-6 h-[15.625rem]"/>
-            <app-thumbnail src="assets/images/home/articles/image.png" className="col-span-3"/>
-            <app-thumbnail src="assets/images/home/features/image-2.png" className="col-span-3"/>
+            <app-thumbnail src="assets/images/home/links/image-06.png"
+                           className="col-span-12 md:col-span-6 lg:col-span-6 lg:row-span-2"/>
+            <app-thumbnail src="assets/images/home/home-slide.png"
+                           className="col-span-12 md:col-span-6 lg:col-span-6 lg:h-[15.625rem]"/>
+            <app-thumbnail src="assets/images/home/articles/image.png"
+                           className="col-span-12 md:col-span-6 lg:col-span-3"/>
+            <app-thumbnail src="assets/images/home/features/image-2.png"
+                           className="col-span-12 md:col-span-6 lg:col-span-3"/>
         </div>
 
-        <div class="flex flex-col gap-4 mt-10 lg:flex-row">
-            <div class="w-full ">
-                <div class="flex justify-around ">
-                    <div class="flex gap-2 mt-8">
-                        <div class="bg-secondary-100 p-3 rounded-lg text-primary">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17.088 6.912C15.684 5.508 13.848 4.8 12 4.8V12L6.912 17.088C9.72 19.896 14.28 19.896 17.1 17.088C19.908 14.28 19.908 9.72 17.088 6.912ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.696 21.6 2.4 17.304 2.4 12C2.4 6.696 6.696 2.4 12 2.4C17.304 2.4 21.6 6.696 21.6 12C21.6 17.304 17.304 21.6 12 21.6Z"
-                                      fill="currentColor"/>
-                            </svg>
-                        </div>
+        <div class="flex flex-col lg:flex-row gap-8 mt-8">
+            <div class="w-full lg:w-8/12">
+                <div class="grid grid-cols-3 md:grid-cols-4 gap-6">
+                    @for (o of options(); track $index) {
+                        <div class="flex flex-col lg:flex-row gap-2 mt-8">
+                            <div class="bg-secondary-100 p-3 rounded-lg text-primary flex justify-center items-center grow-0 size-12">
+                                <ng-container [ngComponentOutlet]="o.icon"/>
+                            </div>
 
-                        <div>
-                            <p class="font-medium">Duration</p>
-                            <p class="text-dark mt-2">{{ feature()?.duration }}</p>
+                            <div>
+                                <p class="font-medium">{{ o.label }}</p>
+                                <p class="text-dark mt-2">{{ o.value }}</p>
+                            </div>
                         </div>
+                    }
+                </div>
+
+                <div class="mt-16">
+                    <h2 class="header header-2">Tour Overview</h2>
+                    <p class="mt-6 max-w-lg">
+                        The Phi Phi archipelago is a must-visit while in Phuket, and this speedboat trip whisks you
+                        around
+                        the islands in one day.
+                        Swim over the coral reefs of Pileh Lagoon, have lunch at Phi Phi Leh, snorkel at Bamboo Island,
+                        and
+                        visit Monkey Beach and
+                        Maya Bay, immortalized in "The Beach." Boat transfers, snacks, buffet lunch, snorkeling
+                        equipment,
+                        and Phuket hotel pickup
+                        and drop-off all included.
+                    </p>
+
+                    <h3 class="header header-3 mt-6">Tour Highlights</h3>
+                    <ul class="list-disc mt-6 pl-6">
+                        <li>Experience the thrill of a speedboat to the stunning Phi Phi Islands</li>
+                        <li>Be amazed by the variety of marine life in the archepelago</li>
+                        <li>Enjoy relaxing in paradise with white sand beaches and azure turquoise water</li>
+                        <li>Feel the comfort of a tour limited to 35 passengers</li>
+                        <li>Catch a glimpse of the wild monkeys around Monkey Beach</li>
+                    </ul>
+                </div>
+
+                <div class="separate my-10"></div>
+
+                <div class="">
+                    <h2 class="header header-2">What's included</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 mt-6 gap-4 md:gap-26">
+                        <ul class="flex flex-col gap-4">
+                            <li class="flex gap-3">
+                                <span class="dot bg-secondary-200"></span>
+                                Beverages, drinking water, morning tea and buffet lunch
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="dot bg-secondary-200"></span>
+                                Local taxes
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="dot bg-secondary-200"></span>
+                                Hotel pickup and drop-off by air-conditioned minivan
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="dot bg-secondary-200"></span>
+                                InsuranceTransfer to a private pier
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="dot bg-secondary-200"></span>
+                                Soft drinks
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="dot bg-secondary-200"></span>
+                                Tour Guide
+                            </li>
+                        </ul>
+
+                        <ul class="flex flex-col gap-4">
+                            <li class="flex gap-3">
+                                <span class="dot bg-secondary-200"></span>
+                                Towel
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="dot bg-secondary-200"></span>
+                                Tips
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="dot bg-secondary-200"></span>
+                                Alcoholic Beverages
+                            </li>
+                        </ul>
                     </div>
+                </div>
 
-                    <div class="flex gap-2 mt-8">
-                        <div class="bg-secondary-100 p-3 rounded-lg text-primary">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17.088 6.912C15.684 5.508 13.848 4.8 12 4.8V12L6.912 17.088C9.72 19.896 14.28 19.896 17.1 17.088C19.908 14.28 19.908 9.72 17.088 6.912ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.696 21.6 2.4 17.304 2.4 12C2.4 6.696 6.696 2.4 12 2.4C17.304 2.4 21.6 6.696 21.6 12C21.6 17.304 17.304 21.6 12 21.6Z"
-                                      fill="currentColor"/>
-                            </svg>
-                        </div>
+                <div class="mt-6">
+                    <h2 class="header header-2">Itinerary</h2>
+                    <ul class="flex flex-col mt-4">
+                        <li class="line-step">
+                            <span class="dot bg-warning"></span>
+                            <h3 class="header header-4 font-medium">Day 1: Airport Pick Up</h3>
+                        </li>
+                        <li class="line-step">
+                            <div class="min-w-5.5 flex justify-center items-center">
+                                <span class="dot border-2 border-warning size-4 min-w-4 max-w-4 bg-white z-50"></span>
+                            </div>
+                            <h3 class="header header-4 font-medium">Day 2: Temples & River Cruise</h3>
+                        </li>
+                        <li class="line-step pb-9">
+                            <div class="min-w-5.5 flex justify-center items-center">
+                                <span class="dot border-2 border-warning size-4 min-w-4 max-w-4 bg-white z-50"></span>
+                            </div>
+                            <div>
+                                <h3 class="header header-4 font-medium">Day 3: Massage & Overnight Train</h3>
+                                <p class="mt-3">
+                                    Like on all of our trips, we can collect you from the airport when you land and take
+                                    you directly to your hotel. The first Day is just a check-in Day so you have this
+                                    freedom to explore the city and get settled in.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="line-step">
+                            <div class="min-w-5.5 flex justify-center items-center">
+                                <span class="dot border-2 border-warning size-4 min-w-4 max-w-4 bg-white z-50"></span>
+                            </div>
+                            <h3 class="header header-4 font-medium">Day 4: Khao Sok National Park</h3>
+                        </li>
+                        <li class="line-step">
+                            <div class="min-w-5.5 flex justify-center items-center">
+                                <span class="dot border-2 border-warning size-4 min-w-4 max-w-4 bg-white z-50"></span>
+                            </div>
+                            <h3 class="header header-4 font-medium">Day 5: Travel to Koh Phangan</h3>
+                        </li>
+                        <li class="line-step">
+                            <div class="min-w-5.5 flex justify-center items-center">
+                                <span class="dot border-2 border-warning size-4 min-w-4 max-w-4 bg-white z-50"></span>
+                            </div>
+                            <h3 class="header header-4 font-medium">Day 6: Morning Chill & Muay Thai Lesson</h3>
+                        </li>
+                        <li class="line-step">
+                            <span class="dot bg-warning"></span>
+                            <h3 class="header header-4 font-medium">Day 7: Island Boat Trip</h3>
+                        </li>
+                    </ul>
+                </div>
 
-                        <div>
-                            <p class="font-medium">Duration</p>
-                            <p class="text-dark mt-2">{{ feature()?.duration }}</p>
-                        </div>
+                <div class="mt-6">
+                    <h2 class="header header-2">Tour Map</h2>
+                    <div class="w-full h-lg rounded-xl mt-4">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2990242.430810972!2d104.81748094771436!3d12.319545059623943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2skh!4v1763796669321!5m2!1sen!2skh"
+                                width="100%" height="512" style="border:0; border-radius: 0.75rem;" allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
+                </div>
 
-                    <div class="flex gap-2 mt-8">
-                        <div class="bg-secondary-100 p-3 rounded-lg text-primary">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17.088 6.912C15.684 5.508 13.848 4.8 12 4.8V12L6.912 17.088C9.72 19.896 14.28 19.896 17.1 17.088C19.908 14.28 19.908 9.72 17.088 6.912ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.696 21.6 2.4 17.304 2.4 12C2.4 6.696 6.696 2.4 12 2.4C17.304 2.4 21.6 6.696 21.6 12C21.6 17.304 17.304 21.6 12 21.6Z"
-                                      fill="currentColor"/>
-                            </svg>
-                        </div>
+                <div class="separate my-10"></div>
 
-                        <div>
-                            <p class="font-medium">Duration</p>
-                            <p class="text-dark mt-2">{{ feature()?.duration }}</p>
-                        </div>
-                    </div>
+                <app-faq/>
 
-                    <div class="flex gap-2 mt-8">
-                        <div class="bg-secondary-100 p-3 rounded-lg text-primary">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17.088 6.912C15.684 5.508 13.848 4.8 12 4.8V12L6.912 17.088C9.72 19.896 14.28 19.896 17.1 17.088C19.908 14.28 19.908 9.72 17.088 6.912ZM12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM12 21.6C6.696 21.6 2.4 17.304 2.4 12C2.4 6.696 6.696 2.4 12 2.4C17.304 2.4 21.6 6.696 21.6 12C21.6 17.304 17.304 21.6 12 21.6Z"
-                                      fill="currentColor"/>
-                            </svg>
-                        </div>
+                <div class="separate my-10"></div>
 
-                        <div>
-                            <p class="font-medium">Duration</p>
-                            <p class="text-dark mt-2">{{ feature()?.duration }}</p>
+                <app-reviews/>
+
+                <div class="mt-8">
+                    <h2 class="header header-2">You might also live</h2>
+
+                    <div class="w-full overflow-auto">
+                        <div class="flex flex-nowrap gap-10 mt-6">
+                            @for (feature of features(); track feature.id) {
+                                <app-card className="w-70" [imageUrl]="feature.imageUrl" [tag]="feature.tag"
+                                          [price]="feature.price"
+                                          [duration]="feature.duration"
+                                          [title]="feature.title"/>
+
+                            }
                         </div>
                     </div>
                 </div>
             </div>
 
-            <app-aside [feature]="feature()"/>
+            <div class="w-full lg:w-1/3">
+                <app-aside [feature]="feature()"/>
+            </div>
         </div>
     </div>
 </div>

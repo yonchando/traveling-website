@@ -16,16 +16,6 @@ export class RateStar {
 
     className = input('');
 
-    getEmptyStar = computed(() => {
-        let value = Math.floor(5 - this.rate());
-
-        if (this.getHalfStar()) {
-            return value - 1;
-        }
-
-        return value;
-    });
-
     getHalfStar = computed(() => {
         return Math.floor(this.rate()) < this.rate();
     });

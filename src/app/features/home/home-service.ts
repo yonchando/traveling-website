@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { faker } from '@faker-js/faker/locale/en';
 
 export interface Feature {
     id: number;
@@ -269,6 +270,6 @@ export class HomeService {
     articles = toSignal(this.getArticles());
 
     getAll() {
-        return [...(this.features() ?? []), ...(this.articles() ?? [])];
+        return of([...(this.features() ?? []), ...(this.articles() ?? [])]);
     }
 }

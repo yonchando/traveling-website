@@ -1,9 +1,10 @@
 import { Component, computed, input } from '@angular/core';
 import clsx from 'clsx';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-card-row',
-    imports: [],
+    imports: [RouterLink],
     templateUrl: './card-row.html',
 })
 export class CardRow {

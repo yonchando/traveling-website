@@ -1,6 +1,7 @@
 <div [class]="getClassName()">
-    <div id="slider-image background-image">
-        <img class="rounded-t-3xl w-full h-auto max-w-full" [src]="src()" alt="Slide 01">
+    <div class="slider-image background-image h-162.5 bg-cover bg-no-repeat bg-center" id=""
+         [style.background-image]="`url(${src()})`">
+        <!--        <img class="rounded-t-3xl w-full h-auto max-w-full" [src]="src()" alt="Slide 01">-->
         <div [class]="getButtonClassName()"></div>
     </div>
 </div>

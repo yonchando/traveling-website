@@ -6,15 +6,16 @@ import clsx from 'clsx';
     imports: [],
     template: `
         <div
-            class="relative h-full bg-cover bg-center bg-no-repeat rounded-xl"
+            class="relative h-full rounded-xl bg-cover bg-center bg-no-repeat"
             [style]="{
                 'background-image': 'url(' + src() + ')',
-            }"
-        >
+            }">
             <img [class]="getImageClass()" [src]="src()" alt="title()" />
-            <span class="absolute bottom-4 left-4 text-white">{{
-                title()
-            }}</span>
+            <span class="absolute bottom-4 left-4 w-full max-w-full text-wrap text-white">
+                <span class="relative">
+                    {{ title() }}
+                </span>
+            </span>
         </div>
     `,
     host: {
@@ -30,9 +31,7 @@ export class Thumbnail {
     width = input('');
     height = input('');
 
-    getImageClass = computed(() =>
-        clsx('h-auto w-full rounded-xl invisible', this.width(), this.height()),
-    );
+    getImageClass = computed(() => clsx('invisible h-auto w-full rounded-xl', this.width(), this.height()));
 
     getClassName = computed(() => clsx(this.className()));
 }

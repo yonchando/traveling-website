@@ -1,9 +1,10 @@
 import { booleanAttribute, Component, computed, input } from '@angular/core';
 import clsx from 'clsx';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-card',
-    imports: [],
+    imports: [RouterLink],
     templateUrl: './card.html',
     styleUrl: './card.css',
 })
@@ -17,7 +18,7 @@ export class Card {
 
     getClass = computed(() =>
         clsx(
-            'flex flex-col max-w-75 rounded-2.5xl overflow-hidden h-full',
+            'flex flex-col max-w-full md:max-w-75 rounded-2.5xl overflow-hidden h-full',
             this.className(),
         ),
     );

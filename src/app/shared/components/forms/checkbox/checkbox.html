@@ -7,6 +7,10 @@
         [value]="value()"
         (blur)="onBlur()"
         (input)="onInput($event)"
-        [checked]="isChecked()" />
-    <span (click)="onClickPlaceholder()" class="text-sm">{{ label() }}</span>
+        [checked]="isChecked()" #inputElement />
+    <span (click)="onClickPlaceholder()" class="text-sm">
+        <ng-content>
+            {{ label() }}
+        </ng-content>
+    </span>
 </label>

@@ -7,7 +7,9 @@
             {{ date() }} | By {{ author() }}
         </span>
         <h2 class="header header-3 mt-4">
-            {{ title() }}
+            <a [routerLink]="['/page-list/detail/',title()]">
+                {{ title() }}
+            </a>
         </h2>
     </div>
 

@@ -1,16 +1,23 @@
-<div class="max-w-330 mx-auto">
+<div class="lg:max-w-330 lg:mx-auto">
     <header class="text-center flex justify-between items-center p-4">
-        <div class="flex w-fit">
+        <div class="w-fit">
             <a routerLink="/" class="text-4xl">
                 <img class="w-36 h-auto" src="assets/logos/logo.png" alt="Logo">
             </a>
         </div>
 
-        <nav>
+
+        <app-button (click)="mobileMenuToggle()" severity="outline" className="text-primary md:hidden" id="mobile-menu">
+            <svg width="36" height="24" viewBox="0 0 36 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 24H36V20H0V24ZM0 14H36V10H0V14ZM0 0V4H36V0H0Z" fill="currentColor"/>
+            </svg>
+        </app-button>
+
+        <nav class="hidden md:block">
             <ul class="flex">
                 @for (menu of menuItems; track $index) {
                     <li>
-                        <a [routerLink]="menu.link" 
+                        <a [routerLink]="menu.link"
                            routerLinkActive="bg-warning text-white"
                            [class.btn-default]="!menu.active"
                            [class.btn-primary]="menu.active"
@@ -22,4 +29,23 @@
             </ul>
         </nav>
     </header>
+
+    @if (mobileMenuOpen()) {
+        <nav animate.enter="fade-in" animate.leave="fade-out">
+            <ul class="flex flex-col p-4">
+                @for (menu of menuItems; track $index) {
+                    <li>
+                        <a [routerLink]="menu.link"
+                           routerLinkActive="border-b-warning"
+                           class="btn font-medium rounded-none btn-default w-full justify-start border-b border-secondary-100">
+                            @if (menu.icon) {
+                                <div [innerHTML]="menu.icon | safeHtml"></div>
+                            }
+                            {{ menu.label }}
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
 </div>

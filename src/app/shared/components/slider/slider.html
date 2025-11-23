@@ -1,7 +1,12 @@
 <div [class]="getClassName()">
-    <div class="slider-image background-image h-162.5 bg-cover bg-no-repeat bg-center" id=""
+    <div class="slider-image background-image h-162 bg-cover bg-no-repeat bg-center" id=""
          [style.background-image]="`url(${src()})`">
         <!--        <img class="rounded-t-3xl w-full h-auto max-w-full" [src]="src()" alt="Slide 01">-->
         <div [class]="getButtonClassName()"></div>
+        <div class="bg-black/30 absolute inset-0 z-20" id="overlay"></div>
+
+        <div class="absolute flex w-full h-full justify-center items-center text-center z-40">
+            <ng-content/>
+        </div>
     </div>
 </div>

@@ -1,15 +1,15 @@
-import { Component, computed, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { GlobeSearchIcon } from '@/app/shared/components/svg/globe-search-icon/globe-search-icon';
+import { Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { SafeHtmlPipe } from '@/app/shared/pipes/safe-html-pipe';
 import { Button } from '@/app/shared/components/button/button';
-import clsx from 'clsx';
+import { HomeService } from '@/app/features/home/home-service';
 
 type MenuItem = {
     label: string;
     link: string;
     active?: boolean;
     icon?: any;
+    hide?: boolean;
 };
 
 @Component({
@@ -19,11 +19,20 @@ type MenuItem = {
     styleUrl: './header.css',
 })
 export class Header {
-    menuItems: MenuItem[] = [
-        {
-            label: 'Explore ',
-            link: '/page-list',
-            icon: `<svg
+    homeService = inject(HomeService);
+    router = inject(Router);
+
+    mobileMenuOpen = signal(false);
+    profileDropdown = signal(false);
+
+    dropDownMenu = viewChild('dropdown', { read: ElementRef<HTMLDivElement> });
+
+    menuItems = computed<MenuItem[]>(() => {
+        return [
+            {
+                label: 'Explore ',
+                link: '/page-list',
+                icon: `<svg
                         width="18"
                         height="18"
                         viewBox="0 0 24 24"
@@ -35,19 +44,19 @@ export class Header {
                             fill="currentColor"
                         />
                     </svg>`,
-        },
-        {
-            label: 'Contact us',
-            link: '/contact-us',
-            icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            },
+            {
+                label: 'Contact us',
+                link: '/contact-us',
+                icon: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 0C5.376 0 0 5.376 0 12C0 18.624 5.376 24 12 24C18.624 24 24 18.624 24 12C24 5.376 18.624 0 12 0ZM13.2 18H10.8V10.8H13.2V18ZM13.2 8.4H10.8V6H13.2V8.4Z" fill="currentColor"/>
                     </svg>
             `,
-        },
-        {
-            label: 'About us',
-            link: '/about-us',
-            icon: `<svg
+            },
+            {
+                label: 'About us',
+                link: '/about-us',
+                icon: `<svg
             width="20"
             height="20"
             viewBox="0 0 20 20"
@@ -59,36 +68,64 @@ export class Header {
                 fill="currentColor"
             />
         </svg>`,
-        },
-        {
-            label: 'Sign up',
-            link: '/sign-up',
-            icon: `<svg width="18" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M18 10C17.7167 10 17.4793 9.904 17.288 9.712C17.096 9.52067 17 9.28333 17 9V7H15C14.7167 7 14.4793 6.904 14.288 6.712C14.096 6.52067 14 6.28333 14 6C14 5.71667 14.096 5.479 14.288 5.287C14.4793 5.09567 14.7167 5 15 5H17V3C17 2.71667 17.096 2.479 17.288 2.287C17.4793 2.09567 17.7167 2 18 2C18.2833 2 18.5207 2.09567 18.712 2.287C18.904 2.479 19 2.71667 19 3V5H21C21.2833 5 21.5207 5.09567 21.712 5.287C21.904 5.479 22 5.71667 22 6C22 6.28333 21.904 6.52067 21.712 6.712C21.5207 6.904 21.2833 7 21 7H19V9C19 9.28333 18.904 9.52067 18.712 9.712C18.5207 9.904 18.2833 10 18 10ZM8 8C6.9 8 5.95833 7.60833 5.175 6.825C4.39167 6.04167 4 5.1 4 4C4 2.9 4.39167 1.95833 5.175 1.175C5.95833 0.391667 6.9 0 8 0C9.1 0 10.0417 0.391667 10.825 1.175C11.6083 1.95833 12 2.9 12 4C12 5.1 11.6083 6.04167 10.825 6.825C10.0417 7.60833 9.1 8 8 8ZM1 16C0.716667 16 0.479333 15.904 0.288 15.712C0.096 15.5207 0 15.2833 0 15V13.2C0 12.6333 0.146 12.1123 0.438 11.637C0.729333 11.1623 1.11667 10.8 1.6 10.55C2.63333 10.0333 3.68333 9.64567 4.75 9.387C5.81667 9.129 6.9 9 8 9C9.1 9 10.1833 9.129 11.25 9.387C12.3167 9.64567 13.3667 10.0333 14.4 10.55C14.8833 10.8 15.2707 11.1623 15.562 11.637C15.854 12.1123 16 12.6333 16 13.2V15C16 15.2833 15.904 15.5207 15.712 15.712C15.5207 15.904 15.2833 16 15 16H1Z" fill="black"/>
-</svg>
-`,
-        },
-        {
-            label: 'Log in',
-            link: '/login',
-            icon: `<svg width="18" height="20" viewBox="0 0 44 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_6156_87)">
-<path d="M18 14L15.2 16.8L20.4 22H0V26H20.4L15.2 31.2L18 34L28 24L18 14ZM36 38H20V42H36C38.2 42 40 40.2 40 38V10C40 7.8 38.2 6 36 6H20V10H36V38Z" fill="black"/>
-</g>
-<defs>
-<clipPath id="clip0_6156_87">
-<rect width="48" height="48" fill="white" transform="translate(-4)"/>
-</clipPath>
-</defs>
-</svg>
-`,
-            active: true,
-        },
-    ];
+            },
+            {
+                label: 'Log in',
+                link: '/login',
+                icon: `<svg width="18" height="20" viewBox="0 0 44 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_6156_87)">
+                    <path d="M18 14L15.2 16.8L20.4 22H0V26H20.4L15.2 31.2L18 34L28 24L18 14ZM36 38H20V42H36C38.2 42 40 40.2 40 38V10C40 7.8 38.2 6 36 6H20V10H36V38Z" fill="currentColor"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_6156_87">
+                    <rect width="48" height="48" fill="white" transform="translate(-4)"/>
+                    </clipPath>
+                    </defs>
+                    </svg>
+                    `,
+                hide: this.homeService.username() !== '',
+                active: true,
+            },
+        ];
+    });
 
-    mobileMenuOpen = signal(false);
+    username = computed(() => this.homeService.username());
+
+    getFirstCharacter = computed(() => this.username().charAt(0).toLowerCase());
+
+    constructor() {
+        effect(() => {
+            if (!this.profileDropdown()) {
+                document.removeEventListener('click', this.clickOutSide);
+            }
+        });
+    }
 
     mobileMenuToggle() {
         this.mobileMenuOpen.update((v) => !v);
+    }
+
+    open() {
+        this.profileDropdown.update((v) => !v);
+    }
+
+    clickOutSide = (e: PointerEvent) => {
+        if (!this.dropDownMenu()?.nativeElement.contains(e.target as Node)) {
+            this.profileDropdown.set(false);
+        }
+    };
+
+    dropdownToggle() {
+        this.open();
+
+        if (this.profileDropdown()) {
+            document.addEventListener('click', this.clickOutSide);
+        }
+    }
+
+    async logout() {
+        sessionStorage.removeItem('username');
+        this.homeService.username.set('');
+        await this.router.navigate(['/']);
     }
 }

@@ -17,6 +17,6 @@ export class Slider {
     bottomClassName = input('bg-secondary');
 
     getButtonClassName = computed(() =>
-        clsx('absolute inset-x-0 bottom-0 h-20 w-full rounded-t-4xl md:rounded-t-[80px]', this.bottomClassName()),
+        clsx('absolute inset-x-0 bottom-0 h-20 w-full rounded-t-4xl md:rounded-t-[80px] z-30', this.bottomClassName()),
     );
 }

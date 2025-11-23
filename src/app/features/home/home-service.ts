@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { of } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { faker } from '@faker-js/faker/locale/en';
 
 export interface Feature {
     id: number;
@@ -23,6 +22,9 @@ export interface Feature {
     providedIn: 'root',
 })
 export class HomeService {
+    
+    username = signal('');
+    
     getCategories() {
         return of([
             {
@@ -207,8 +209,7 @@ export class HomeService {
             {
                 id: 1,
                 title: 'Antelope Canyon',
-                imageUrl:
-                    'assets/images/home/top-attractions/antelope-canyon.png',
+                imageUrl: 'assets/images/home/top-attractions/antelope-canyon.png',
                 visitedCount: '100+ Tours',
             },
             {
@@ -232,15 +233,13 @@ export class HomeService {
             {
                 id: 5,
                 title: 'National September 11 Memorial',
-                imageUrl:
-                    'assets/images/home/top-attractions/national-september-11-memorial.png',
+                imageUrl: 'assets/images/home/top-attractions/national-september-11-memorial.png',
                 visitedCount: '100+ Tours',
             },
             {
                 id: 6,
                 title: 'Statue of Liberty',
-                imageUrl:
-                    'assets/images/home/top-attractions/statue-of-liberty.png',
+                imageUrl: 'assets/images/home/top-attractions/statue-of-liberty.png',
                 visitedCount: '100+ Tours',
             },
             {
@@ -252,15 +251,13 @@ export class HomeService {
             {
                 id: 8,
                 title: 'Tower of London',
-                imageUrl:
-                    'assets/images/home/top-attractions/tower-of-london.png',
+                imageUrl: 'assets/images/home/top-attractions/tower-of-london.png',
                 visitedCount: '100+ Tours',
             },
             {
                 id: 9,
                 title: 'Vatican Museums',
-                imageUrl:
-                    'assets/images/home/top-attractions/vatican-museums.png',
+                imageUrl: 'assets/images/home/top-attractions/vatican-museums.png',
                 visitedCount: '100+ Tours',
             },
         ]);

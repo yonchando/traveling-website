@@ -1,0 +1,43 @@
+<app-slider src="assets/images/home/home-slide.png" bottomClassName="bg-white">
+    <div class="text-center text-white">
+        <h2 class="text-7xl font-semibold">Login</h2>
+    </div>
+</app-slider>
+
+<div class="content gap-10 px-4 md:px-10">
+    <div class="mx-auto max-w-2xl rounded-2xl bg-secondary py-8 px-20">
+        <div class="flex flex-col items-center justify-center gap-2">
+            <h2 class="header header-2 text-warning">Login</h2>
+            <p class="mt-6">Please input your username and password.</p>
+
+            <form (ngSubmit)="login()" class="w-full">
+                <div class="mt-8 flex flex-col gap-6">
+                    <div>
+                        <label class="mb-2 block">Username</label>
+                        <app-input [(ngModel)]="username" name="username" placeholder="Username" />
+                    </div>
+
+                    <div>
+                        <label class="mb-2 block">Password</label>
+                        <app-input [(ngModel)]="password" name="password" placeholder="Password" type="password" />
+                    </div>
+
+                    <div class="flex items-center justify-between gap-2">
+                        <app-checkbox label="Remember me" />
+
+                        <a class="text-primary underline" routerLink="/forgot-password"> Forgot Password? </a>
+                    </div>
+                </div>
+
+                <app-button type="submit" severity="primary" className="mt-8 w-full">Login</app-button>
+            </form>
+
+            <span class="">or</span>
+
+            <div class="flex flex-col gap-6">
+                <app-button type="button" severity="warning" className="w-full">Login with Google</app-button>
+                <app-button type="button" severity="warning" className="w-full">Login with Facebook</app-button>
+            </div>
+        </div>
+    </div>
+</div>

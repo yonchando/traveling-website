@@ -1,0 +1,65 @@
+<app-slider bottomClassName="bg-white" src="assets/images/home/home-slide.png">
+    <div class="text-center text-white">
+        <h2 class="text-6xl font-semibold">Contact Us</h2>
+    </div>
+</app-slider>
+
+<div class="content px-4 md:px-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
+        <div>
+            <h2 class="header header-2">Contact Us.</h2>
+            <span class="mt-4 flex flex-col gap-2">
+                <span>Name: {{ companyInfo()?.name }}</span>
+                <span>Email: {{ companyInfo()?.email }}</span>
+                <span>Phone: {{ companyInfo()?.phone }}</span>
+            </span>
+
+            <div class="mt-6 flex flex-col gap-4">
+                @for (l of locations(); track $index; let i = $index) {
+                    <div class="rounded-xl border border-secondary-100 p-6 shadow">
+                        <app-button
+                                (click)="openIndex.set(i)"
+                                severity="outline"
+                                className="flex w-full items-center justify-between font-semibold">
+                            Branch: {{ l.location }}, Contact number: {{ l.phone }}
+                            @if (i === openIndex()) {
+                                <span class="dot bg-warning"></span>
+                            } @else {
+                                <span class="dot bg-warning/10"></span>
+                            }
+                        </app-button>
+
+                        @if (i === openIndex()) {
+                            <p class="mt-6" animate.enter="fade-in">
+                                {{ l.address }}
+                            </p>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+        <div>
+            <h2 class="header header-2">Send us your contact</h2>
+            <p class="mb-4">We contact back in 1 - 2 working day.</p>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <app-input placeholder="Name*"/>
+                </div>
+                <div>
+                    <app-input placeholder="Email*"/>
+                </div>
+                <div class="col-span-2">
+                    <app-input placeholder="Title*"/>
+                </div>
+                <div class="col-span-2">
+                    <textarea rows="5" placeholder="Message*" class="w-full form-input p-4 h-auto"></textarea>
+                </div>
+                
+                <div>
+                    <app-button severity="primary" className="w-full">Send</app-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

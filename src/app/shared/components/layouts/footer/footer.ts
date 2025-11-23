@@ -5,10 +5,11 @@ import { Input } from '@/app/shared/components/forms/input/input';
 import { Button } from '@/app/shared/components/button/button';
 import { AppStore } from '@/app/shared/components/svg/app-store/app-store';
 import { GooglePlay } from '@/app/shared/components/svg/google-play/google-play';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-footer',
-    imports: [Shade, FormsModule, Input, Button, AppStore, GooglePlay],
+    imports: [Shade, FormsModule, Input, Button, AppStore, GooglePlay, RouterLink],
     templateUrl: './footer.html',
     styleUrl: './footer.css',
 })

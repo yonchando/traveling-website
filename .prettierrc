@@ -12,6 +12,7 @@
     ],
     "tailwindStylesheet": "./src/styles.css",
     "tailwindAttributes": [
+        "*ClassName",
         "className",
         "clsx"
     ],

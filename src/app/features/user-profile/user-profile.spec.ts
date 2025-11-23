@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Collapse } from './collapse';
+import { UserProfile } from './user-profile';
 
-describe('Collapse', () => {
-  let component: Collapse;
-  let fixture: ComponentFixture<Collapse>;
+describe('UserProfile', () => {
+  let component: UserProfile;
+  let fixture: ComponentFixture<UserProfile>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Collapse]
+      imports: [UserProfile]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Collapse);
+    fixture = TestBed.createComponent(UserProfile);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

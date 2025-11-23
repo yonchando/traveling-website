@@ -22,7 +22,10 @@
                             },
                             "src/assets"
                         ],
-                        "styles": ["src/styles.css"]
+                        "styles": ["src/styles.css"],
+                        "allowedCommonJsDependencies": [
+                            "dayjs"
+                        ]
                     },
                     "configurations": {
                         "production": {

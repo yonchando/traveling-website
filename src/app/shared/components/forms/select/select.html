@@ -1,0 +1,25 @@
+<div class="form-select">
+    <div class="relative">
+        <button [class]="getButtonClass()" (click)="open()">
+            <span>{{ getSelected() }}</span>
+            <span class="absolute top-1/4 right-4">
+                <icon-chevron-down />
+            </span>
+        </button>
+
+        <div [class]="getDropdownClass()">
+            @for (option of options(); track getValue(option)) {
+                <div class="form-select-item flex justify-between px-3" (click)="selection(option)">
+                    <span>
+                        {{ getLabel(option) }}
+                    </span>
+                    @if (value() && getValue(value()!) == getValue(option)) {
+                        <span class="text-primary">
+                            <icon-check />
+                        </span>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

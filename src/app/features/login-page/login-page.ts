@@ -20,11 +20,11 @@ export class LoginPage {
     username = signal('');
     password = signal('');
 
-    async login() {
+    login() {
         sessionStorage.setItem('username', this.username());
 
         this.homeService.username.set(this.username());
 
-        await this.router.navigate(['/profile']);
+        window.history.back();
     }
 }

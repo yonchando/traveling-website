@@ -1,51 +1,54 @@
 <div class="flex justify-between">
-    <h3>{{ getFeatures().length }} results</h3>
+    <h3>{{ products().length }} results</h3>
 </div>
 
-@for (f of getFeatures(); track $index) {
-    <div class="mt-6 grid grid-cols-1 rounded-2xl border border-secondary-100 p-5 md:grid-cols-12 gap-4">
-        <app-thumbnail className="md:col-span-4" [imageUrl]="f.imageUrl"/>
+@for (product of products(); track $index) {
+    <div class="mt-6 grid grid-cols-1 gap-4 rounded-2xl border border-secondary-100 p-5 md:grid-cols-12">
+        <app-thumbnail className="md:col-span-4" [imageUrl]="product.imageUrl" />
 
-        <div class="md:col-span-5 md:mt-4 flex flex-col gap-4">
-            <span class="text-xs">{{ f.tag }}</span>
-            <a [routerLink]="['/page-list/detail/', f.title]">
+        <div class="flex flex-col gap-4 md:col-span-5 md:mt-4">
+            <span class="text-xs">{{ product.tag }}</span>
+            <a [routerLink]="['/page-list/detail/', product.title]">
                 <h3 class="header header-3 mt-2 max-w-full text-ellipsis">
-                    {{ f.title.length > 60 ? f.title.slice(0, 60) + '...' : f.title }}
+                    {{ product.title.length > 60 ? product.title.slice(0, 60) + '...' : product.title }}
                 </h3>
             </a>
             <p class="mt-4">
-                {{ f.content }}
+                {{ product.content }}
             </p>
             <div class="mt-4 hidden md:mt-auto md:flex">
-                <app-rate-star [rate]="f.rating" [count]="f.reviewCount"/>
+                <app-rate-star [rate]="product.rating" [count]="product.reviewCount" />
             </div>
         </div>
 
         <div class="mt-4 items-center gap-2 border-secondary-100 md:col-span-3 md:flex md:flex-col md:border-l md:pl-4">
-            <span>{{ f.duration }}</span>
             <div class="mt-4 flex flex-col gap-2 md:mt-auto md:items-center">
-                @if (f.originalPrice) {
-                    <span class="text-dark line-through">{{ f.originalPrice }}</span>
-                }
-                <span>From
-                    <span class="text-base font-medium">{{ f.price }}</span>
+                <span
+                >From
+                    <span class="text-base font-medium">{{ product.price | currency }}</span>
                 </span>
                 <app-button
-                        (click)="router.navigate(['page-list/detail/', f.title])"
-                        className="mt-4 hidden md:inline-flex"
-                        severity="primary">
+                    (click)="router.navigate(['page-list/detail/', product.title])"
+                    className="mt-4 hidden md:inline-flex"
+                    severity="primary">
                     View Details
                 </app-button>
             </div>
         </div>
 
         <div class="flex justify-between md:hidden">
-            <app-button (click)="router.navigate(['page-list/detail/', f.title])" className="mt-4" severity="primary">
+            <app-button
+                (click)="router.navigate(['page-list/detail/', product.title])"
+                className="mt-4"
+                severity="primary">
                 View Details
             </app-button>
-            <div class="mt-4 md:mt-auto">
-                <app-rate-star [rate]="f.rating" [count]="f.reviewCount"/>
-            </div>
         </div>
     </div>
 }
+<div class="mt-6 flex justify-center">
+    <app-button severity="warning" (click)="nextPage()">
+        View more
+    </app-button>
+</div>
+

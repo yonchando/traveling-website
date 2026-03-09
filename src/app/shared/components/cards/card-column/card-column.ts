@@ -8,6 +8,6 @@ import { Component, input } from '@angular/core';
 })
 export class CardColumn {
     title = input('');
-    count = input('');
+    count = input(0);
     imageUrl = input('');
 }

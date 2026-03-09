@@ -1,5 +1,6 @@
 import { Component, computed, input, numberAttribute } from '@angular/core';
 import clsx from 'clsx';
+import { range } from '@/app/shared/ultils/iterator-util';
 
 @Component({
     selector: 'app-rate-star',
@@ -16,23 +17,13 @@ export class RateStar {
 
     className = input('');
 
-    getHalfStar = computed(() => {
-        return Math.floor(this.rate()) < this.rate();
-    });
-
     getClass = computed(() =>
         clsx('inline-flex flex-col-reverse items-center gap-2 text-warning md:flex-row', this.className()),
     );
 
-    range(from: number = 0, to: number) {
-        let result = [];
+    getFullStar = computed(() => range(Math.floor(this.rate())));
 
-        for (let i = from; i < to; i++) {
-            result.push(i);
-        }
+    getHalfStar = computed(() => Math.floor(this.rate()) < this.rate());
 
-        return result;
-    }
-
-    protected readonly Math = Math;
+    getEmptyStar = computed(() => range(Math.floor(5 - this.rate())));
 }

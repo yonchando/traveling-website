@@ -1,11 +1,4 @@
-import {
-    Component,
-    computed,
-    forwardRef,
-    input,
-    model,
-    signal,
-} from '@angular/core';
+import { Component, computed, forwardRef, input, model, output, signal } from '@angular/core';
 import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import clsx from 'clsx';
 
@@ -31,6 +24,8 @@ export class Input extends DefaultValueAccessor {
     value = model('');
     getClassName = computed(() => clsx('form-input', this.className()));
 
+    typing = output<string>();
+
     override writeValue(value: string): void {
         this.value.set(value);
     }
@@ -39,5 +34,7 @@ export class Input extends DefaultValueAccessor {
         let value = (event.target as HTMLInputElement).value;
         this.value.set(value);
         this.onChange(value);
+
+        this.typing.emit(value);
     }
 }

@@ -1,6 +1,13 @@
-<app-header/>
+<app-header />
+
 <main class="main">
-    <router-outlet/>
+    <router-outlet />
 </main>
 
-<app-footer/>
+<div class="fixed right-8 bottom-8 transition-all duration-300 ease-in-out" #scrollUp>
+    <app-button (click)="scrollToTop()" className="size-12" severity="primary">
+        <icon-arrow-up />
+    </app-button>
+</div>
+
+<app-footer />

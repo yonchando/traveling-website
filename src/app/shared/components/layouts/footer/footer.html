@@ -1,5 +1,5 @@
 <footer class="relative mt-10 min-h-[516px] bg-primary">
-    <app-shade shade="footer" class="absolute inset-x-0 -top-4 lg:-top-2"/>
+    <app-shade shade="footer" class="absolute inset-x-0 -top-4 lg:-top-2" />
 
     <div class="content p-6 text-white lg:px-20 lg:pt-20">
         <div class="grid grid-cols-2 gap-10 md:grid-cols-3 lg:grid-cols-7">
@@ -7,7 +7,7 @@
                 <h2 class="header header-3">Contact</h2>
                 <p class="mt-8">
                     328 Queensberry Street, North Melbourne VIC3051, Australia.
-                    <br/>
+                    <br />
                     <a href="#">hi&#64;traval.com</a>
                 </p>
             </div>
@@ -17,19 +17,15 @@
                     <li>
                         <a routerLink="/about-us"> About Us </a>
                     </li>
-                    <li>Tour Reviews</li>
                     <li>
                         <a routerLink="/contact-us"> Contact Us </a>
                     </li>
-                    <li>Travel Guides</li>
                     <li>
                         <a routerLink="/data-privacy"> Data Policy </a>
                     </li>
                     <li>
                         <a routerLink="/data-privacy"> Cookie Policy </a>
                     </li>
-                    <li>Legal</li>
-                    <li>Sitemap</li>
                 </ul>
             </div>
             <div class="">
@@ -40,7 +36,6 @@
                     </li>
                     <li>Help center</li>
                     <li>Live chat</li>
-                    <li>How it works</li>
                 </ul>
             </div>
             <div class="col-span-2 flex flex-col gap-8 md:col-span-3 md:flex-row lg:flex-col xl:col-span-2">
@@ -50,37 +45,37 @@
                     <form (ngSubmit)="subscribe()" class="mt-4">
                         <div class="">
                             <div class="relative">
-                                <app-input [(ngModel)]="email" name="email" placeholder="Enter your email"/>
+                                <app-input [(ngModel)]="email" name="email" placeholder="Enter your email" />
                                 <app-button
-                                        type="submit"
-                                        className="absolute top-1/2 right-0 -translate-y-1/2 hover:bg-transparent hover:text-primary">
+                                    type="submit"
+                                    className="absolute top-1/2 right-0 -translate-y-1/2 hover:bg-transparent hover:text-primary">
                                     Send
                                     <svg
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
                                         <path
-                                                fill-rule="evenodd"
-                                                clip-rule="evenodd"
-                                                d="M16.2838 7.69012L9.99067 14.0253L2.62294 9.49052C1.65751 8.89619 1.85319 7.42997 2.94078 7.1143L20.3358 2.0527C21.325 1.76642 22.2396 2.69384 21.9434 3.68765L16.7822 21.0647C16.4589 22.1521 15.0092 22.3404 14.4232 21.3695L9.99067 14.0253"
-                                                fill="url(#paint0_linear_3_3972)"/>
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M16.2838 7.69012L9.99067 14.0253L2.62294 9.49052C1.65751 8.89619 1.85319 7.42997 2.94078 7.1143L20.3358 2.0527C21.325 1.76642 22.2396 2.69384 21.9434 3.68765L16.7822 21.0647C16.4589 22.1521 15.0092 22.3404 14.4232 21.3695L9.99067 14.0253"
+                                            fill="url(#paint0_linear_3_3972)" />
                                         <path
-                                                d="M16.2838 7.69012L9.99067 14.0253L2.62294 9.49052C1.65751 8.89619 1.85319 7.42997 2.94078 7.1143L20.3358 2.0527C21.325 1.76642 22.2396 2.69384 21.9434 3.68765L16.7822 21.0647C16.4589 22.1521 15.0092 22.3404 14.4232 21.3695L9.99067 14.0253"
-                                                stroke="white"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"/>
+                                            d="M16.2838 7.69012L9.99067 14.0253L2.62294 9.49052C1.65751 8.89619 1.85319 7.42997 2.94078 7.1143L20.3358 2.0527C21.325 1.76642 22.2396 2.69384 21.9434 3.68765L16.7822 21.0647C16.4589 22.1521 15.0092 22.3404 14.4232 21.3695L9.99067 14.0253"
+                                            stroke="white"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round" />
                                         <defs>
                                             <linearGradient
-                                                    id="paint0_linear_3_3972"
-                                                    x1="22"
-                                                    y1="22"
-                                                    x2="1.67423"
-                                                    y2="21.6633"
-                                                    gradientUnits="userSpaceOnUse">
-                                                <stop stop-color="#888BF4" offset="0"/>
-                                                <stop offset="1" stop-color="#5151C6"/>
+                                                id="paint0_linear_3_3972"
+                                                x1="22"
+                                                y1="22"
+                                                x2="1.67423"
+                                                y2="21.6633"
+                                                gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#888BF4" offset="0" />
+                                                <stop offset="1" stop-color="#5151C6" />
                                             </linearGradient>
                                         </defs>
                                     </svg>
@@ -100,11 +95,11 @@
                     <h2 class="header header-3">Mobile Apps</h2>
                     <ul class="mt-4 flex flex-col gap-4">
                         <li class="flex items-center gap-2">
-                            <icon-app-store/>
+                            <icon-app-store />
                             iOS App
                         </li>
                         <li class="flex items-center gap-2">
-                            <icon-google-play/>
+                            <icon-google-play />
                             Android App
                         </li>
                     </ul>
@@ -113,9 +108,7 @@
         </div>
     </div>
 
-    <div class="text-center text-white p-6">
-        &commat;Copyright 2025 Travel. All rights reserved. Design by <a href="https://buymeacoffee.com/shawonetc"
-                                                                         class="text-warning"
-                                                                         target="_blank">Shawoneee</a>
+    <div class="p-6 text-center text-white">
+        &commat;Copyright 2025 Travel. All rights reserved.
     </div>
 </footer>

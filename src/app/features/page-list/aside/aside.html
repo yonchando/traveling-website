@@ -1,69 +1,53 @@
-<div class="bg-warning p-6 rounded-t-xl">
+<div class="rounded-t-xl bg-warning p-6">
     <h3 class="header header-4 text-white">When are you traveling?</h3>
-    <app-input [value]="date()" className="mt-4"/>
+    <app-input [value]="date()" className="mt-4" />
 </div>
 
 <div class="p-8">
     <div class="border-b border-b-gray-200 pb-4">
-        <app-button severity="outline" className="p-0 font-medium text-lg text-body">
-            Tour Type
-        </app-button>
-        <ul class="flex flex-col gap-2 mt-4">
-            <li>
-                <app-checkbox label="Nature Tours"/>
-            </li>
-            <li>
-                <app-checkbox label="Adventure Tours"/>
-            </li>
-            <li>
-                <app-checkbox label="Cultural Tours"/>
-            </li>
-            <li>
-                <app-checkbox label="Food Tours"/>
-            </li>
-            <li>
-                <app-checkbox label="City Tours"/>
-            </li>
-            <li>
-                <app-checkbox label="Cruises Tours"/>
-            </li>
+        <app-button severity="outline" className="p-0 text-lg font-medium text-body"> Categories</app-button>
+        <ul class="mt-4 flex flex-col gap-2">
+            @for (cat of categories(); track cat) {
+                <li>
+                    <app-checkbox [value]="cat" (picked)="filterCategory($event)" [label]="cat" />
+                </li>
+            }
         </ul>
-        <app-button severity="outline" className="mt-4 p-0">See more</app-button>
     </div>
 
-    <div class="border-b border-b-gray-200 pb-4 mt-4">
-        <app-collapse>
-            <h3 class="header header-4 btn-trigger">
-                Filter Price
-            </h3>
-            <div class="flex gap-4 mt-4">
-                <app-input placeholder="Min Price"/>
-                <app-input placeholder="Max Price"/>
+    <div class="mt-4 border-b border-b-gray-200 pb-4">
+        <h3 class="header header-4 btn-trigger">Filter Price</h3>
+        <div class="mt-4 flex flex-col gap-4">
+            <div>
+                <label for="min_price">Min price</label>
+                <app-input (typing)="setPrice($event,'min_price')" className="mt-2" placeholder="Min Price" id="min_price" />
             </div>
-        </app-collapse>
+            <div>
+                <label for="max_price">Max price</label>
+                <app-input (typing)="setPrice($event,'max_price')" className="mt-2" placeholder="Max Price" id="max_price" />
+            </div>
+        </div>
     </div>
 
-    <div class="border-b border-b-gray-200 pb-4 mt-4">
-        <app-collapse>
-            <h3 class="header header-4 btn-trigger">
-                Language
-            </h3>
-            <div class="flex gap-4 mt-4">
-                <app-input placeholder="Min Price"/>
-                <app-input placeholder="Max Price"/>
-            </div>
-        </app-collapse>
+    <div class="mt-4 border-b border-b-gray-200 pb-4">
+        <app-button severity="outline" className="p-0 text-lg font-medium text-body"> City</app-button>
+        <ul class="mt-4 flex flex-col gap-2">
+            @for (city of cities(); track city) {
+                <li>
+                    <app-checkbox [value]="city" (picked)="filterCity($event)" [label]="city" />
+                </li>
+            }
+        </ul>
     </div>
 
-    <div class="border-b border-b-gray-200 pb-4 mt-4">
-        <app-collapse>
-            <h3 class="header header-4 btn-trigger">
-                Duration
-            </h3>
-            <div class="flex gap-4 mt-4">
-                <app-input placeholder="Min Price"/>
-                <app-input placeholder="Max Price"/>
-            </div>
-        </app-collapse>
+    <div class="mt-4 border-b border-b-gray-200 pb-4">
+        <app-button severity="outline" className="p-0 text-lg font-medium text-body"> Country</app-button>
+        <ul class="mt-4 flex flex-col gap-2">
+            @for (country of countries(); track country) {
+                <li>
+                    <app-checkbox [value]="country" (picked)="filterCountry($event)" [label]="country" />
+                </li>
+            }
+        </ul>
     </div>
 </div>

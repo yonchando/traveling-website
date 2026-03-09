@@ -1,18 +1,5 @@
-import {
-    booleanAttribute,
-    Component,
-    ElementRef,
-    forwardRef,
-    input,
-    output,
-    signal,
-    viewChild,
-} from '@angular/core';
-import {
-    CheckboxControlValueAccessor,
-    NG_VALUE_ACCESSOR,
-} from '@angular/forms';
-import { clsx } from 'clsx';
+import { booleanAttribute, Component, ElementRef, forwardRef, input, output, signal, viewChild } from '@angular/core';
+import { CheckboxControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
     selector: 'app-checkbox',
@@ -26,7 +13,7 @@ import { clsx } from 'clsx';
         },
     ],
     host: {
-        '[class]': "clsx('flex items-center gap-2')",
+        class: 'flex items-center gap-2',
     },
 })
 export class Checkbox extends CheckboxControlValueAccessor {
@@ -45,6 +32,8 @@ export class Checkbox extends CheckboxControlValueAccessor {
 
     inputElement = viewChild<ElementRef<HTMLInputElement>>('inputElement');
 
+    picked = output<{ e: Event; value: any }>();
+
     override writeValue(value: any) {
         this.isChecked.set(value === this.value() || !!value);
         this.formControl.set(value);
@@ -61,9 +50,12 @@ export class Checkbox extends CheckboxControlValueAccessor {
     protected onInput(e: Event) {
         const el = e.target as HTMLInputElement;
         this.onChange(el.value);
-    }
 
-    protected readonly clsx = clsx;
+        this.picked.emit({
+            e,
+            value: el.value,
+        });
+    }
 
     protected onClickPlaceholder() {
         if (this.isChecked()) {

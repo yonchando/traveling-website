@@ -1,13 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
 /* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss';
 
 @theme {
-    --color-body: #05073C;
-    --color-primary: #4A43C4;
-    --color-warning: #EB662B;
-    --color-secondary: #FEF7F4;
-    --color-secondary-100: #E7E6E6;
-    --color-secondary-200: #EFF7F1;
+    --color-body: #05073c;
+    --color-primary: #4a43c4;
+    --color-warning: #eb662b;
+    --color-secondary: #fef7f4;
+    --color-secondary-100: #e7e6e6;
+    --color-secondary-200: #eff7f1;
     --color-dark: #717171;
 
     --radius-2\.5xl: 1.25rem;
@@ -16,15 +18,13 @@
 @layer base {
     body {
         @apply text-sm;
-        font-family: "Inter", "Poppins", sans-serif;
+        font-family: 'JetBrains Mono', 'Inter', 'Poppins', sans-serif;
     }
 }
 
-
 @layer components {
-
     .header {
-        @apply font-bold ;
+        @apply font-bold;
 
         &.header-2 {
             @apply leading-6 md:leading-8 lg:leading-11;
@@ -41,11 +41,11 @@
     }
 
     .content {
-        @apply max-w-[1350px] mx-auto;
+        @apply mx-auto max-w-[1350px];
     }
 
     .btn {
-        @apply inline-flex gap-2 items-center rounded-full px-6 py-3 cursor-pointer justify-center;
+        @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-3;
         font-size: clamp(0.75rem, 1vw, 0.875rem);
 
         &.btn-primary {
@@ -65,7 +65,7 @@
         }
 
         &.btn-outline {
-            @apply bg-transparent text-body p-0;
+            @apply bg-transparent p-0 text-body;
         }
 
         &.btn-warning {
@@ -79,15 +79,13 @@
                 @apply bg-warning text-white;
             }
         }
-
     }
 
-
     .form-input {
-        @apply appearance-none border border-secondary-100 rounded-xl h-12 w-full bg-white px-4 caret-warning text-dark font-medium;
+        @apply h-12 w-full appearance-none rounded-lg border border-secondary-100 bg-white px-4 font-medium text-dark caret-warning;
 
         @variant focus {
-            @apply outline-none ring-0 ring-warning;
+            @apply ring-0 ring-warning outline-none;
         }
 
         @variant invalid {
@@ -97,11 +95,30 @@
         @variant placeholder {
             @apply text-dark/35;
         }
-
     }
 
     .form-check {
         @apply size-5;
+    }
+
+    .form-select {
+        .form-select-dropdown {
+            .form-select-item {
+                @apply px-4 py-2;
+
+                &:hover {
+                    @apply bg-gray-300;
+
+                    &:first-child:hover {
+                        @apply rounded-t-lg;
+                    }
+
+                    &:last-child:hover {
+                        @apply rounded-b-lg;
+                    }
+                }
+            }
+        }
     }
 
     .separate {
@@ -109,15 +126,15 @@
     }
 
     .dot {
-        @apply inline-block size-6 rounded-full max-w-6 min-w-6;
+        @apply inline-block size-6 max-w-6 min-w-6 rounded-full;
     }
 
     .line-step {
-        @apply flex gap-3 relative pb-12;
+        @apply relative flex gap-3 pb-12;
 
         &:not(:last-child)::after {
             content: '';
-            @apply w-px border border-dashed border-warning absolute inset-y-0 left-2.5 z-20;
+            @apply absolute inset-y-0 left-2.5 z-20 w-px border border-dashed border-warning;
         }
     }
 
@@ -131,7 +148,6 @@
         animation-duration: 0.3s;
     }
 }
-
 
 @keyframes fadeIn {
     from {

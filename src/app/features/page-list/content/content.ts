@@ -1,39 +1,64 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { Feature, HomeService } from '@/app/features/home/home-service';
-import { Thumbnail } from '@/app/shared/components/thumbnail/thumbnail';
-import { Button } from '@/app/shared/components/button/button';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { PageService } from '@/app/features/page-list/page-service';
+import { Thumbnail } from '@/app/shared/components/thumbnail/thumbnail';
 import { RateStar } from '@/app/shared/components/rate-star/rate-star';
-import { faker } from '@faker-js/faker/locale/en';
+import { Button } from '@/app/shared/components/button/button';
+import { CurrencyPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-content',
-    imports: [Thumbnail, Button, RouterLink, RateStar],
+    imports: [Thumbnail, RouterLink, RateStar, Button, CurrencyPipe],
     templateUrl: './content.html',
     styleUrl: './content.css',
 })
-export class Content implements OnInit {
-    homeService = inject(HomeService);
+export class Content {
     router = inject(Router);
+    pageService = inject(PageService);
 
-    getFeatures = signal<Feature[]>([]);
+    categories = toSignal(this.pageService.getCategories());
+    cities = toSignal(this.pageService.getCities());
+    countries = toSignal(this.pageService.getCountries());
 
-    ngOnInit() {
-        this.homeService.getAll().subscribe({
-            next: (features) => {
-                features.forEach((item) => {
-                    if (!item.content) {
-                        item.content = faker.lorem.paragraphs(1);
-                    }
-                    if (!item.rating) {
-                        item.rating = faker.number.float({ min: 1, max: 5, fractionDigits: 1 });
-                    }
-                    if (item.reviewCount) {
-                        item.reviewCount = faker.number.int({ max: 1_000 });
-                    }
-                });
-                this.getFeatures.set(features);
-            },
-        });
+    page = signal(1);
+
+    products = computed(() => {
+        let products = this.pageService.products();
+
+        const categories = this.categories();
+        const cities = this.cities();
+        const countries = this.countries();
+
+        if (categories && categories.length > 0) {
+            products = products.filter((product) => categories.includes(product.category));
+        }
+
+        if (cities && cities.length > 0) {
+            products = products.filter((product) => cities.includes(product.city));
+        }
+
+        if (countries && countries.length > 0) {
+            products = products.filter((product) => countries.includes(product.country));
+        }
+
+        const min = this.pageService.min();
+        const max = this.pageService.max();
+
+        if (min > 0 && max > 0) {
+            products = products.filter((p) => p.price >= min && p.price <= max);
+        } else if (min > 0) {
+            products = products.filter((p) => p.price >= min);
+        } else if (max > 0) {
+            products = products.filter((p) => p.price <= max);
+        }
+
+        let limit = 20 * this.page();
+
+        return products.slice(0, limit);
+    });
+
+    protected nextPage() {
+        this.page.update((p) => p + 1);
     }
 }

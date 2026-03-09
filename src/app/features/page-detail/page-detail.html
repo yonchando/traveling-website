@@ -9,24 +9,24 @@
 
 <div class="content px-10 relative">
     <p>
-        Home > {{ feature()?.category }} > {{ feature()?.title }}
+        Home > {{ product()?.category }} > {{ product()?.title }}
     </p>
 
     <div class="mt-8">
-        <h2 class="header header-2">{{ feature()?.title }}</h2>
+        <h2 class="header header-2">{{ product()?.title }}</h2>
 
         <div class="mt-4">
-            <app-rate-star [rate]="feature()?.rating" [count]="feature()?.reviewCount"/>
+            <app-rate-star [rate]="product()?.rating" [count]="product()?.reviewCount" />
             <span class="px-3 text-secondary-100">|</span>
             <span class="">
-                {{ feature()?.tag }}
+                {{ product()?.tag }}
             </span>
         </div>
 
         <div class="grid grid-cols-12 gap-2 grid-rows-2 mt-4">
             @for (i of getThumbnails(); track $index) {
                 <app-thumbnail [imageUrl]="i.imageUrl"
-                               [className]="i.className"/>
+                               [className]="i.className" />
             }
         </div>
 
@@ -35,8 +35,9 @@
                 <div class="grid grid-cols-3 md:grid-cols-4 gap-6">
                     @for (o of options(); track $index) {
                         <div class="flex flex-col lg:flex-row gap-2 mt-8">
-                            <div class="bg-secondary-100 p-3 rounded-lg text-primary flex justify-center items-center grow-0 size-12">
-                                <ng-container [ngComponentOutlet]="o.icon"/>
+                            <div
+                                class="bg-secondary-100 p-3 rounded-lg text-primary flex justify-center items-center grow-0 size-12">
+                                <ng-container [ngComponentOutlet]="o.icon" />
                             </div>
 
                             <div>
@@ -175,31 +176,33 @@
                 <div class="mt-6">
                     <h2 class="header header-2">Tour Map</h2>
                     <div class="w-full h-lg rounded-xl mt-4">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2990242.430810972!2d104.81748094771436!3d12.319545059623943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2skh!4v1763796669321!5m2!1sen!2skh"
-                                width="100%" height="512" style="border:0; border-radius: 0.75rem;" allowfullscreen=""
-                                loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2990242.430810972!2d104.81748094771436!3d12.319545059623943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2skh!4v1763796669321!5m2!1sen!2skh"
+                            width="100%" height="512" style="border:0; border-radius: 0.75rem;" allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
 
                 <div class="separate my-10"></div>
 
-                <app-faq/>
+                <app-faq />
 
                 <div class="separate my-10"></div>
 
-                <app-reviews/>
+                <app-reviews />
 
                 <div class="mt-8">
                     <h2 class="header header-2">You might also live</h2>
 
                     <div class="w-full overflow-auto">
                         <div class="flex flex-nowrap gap-10 mt-6">
+
                             @for (feature of features(); track feature.id) {
                                 <app-card className="w-70" [imageUrl]="feature.imageUrl" [tag]="feature.tag"
                                           [price]="feature.price"
                                           [duration]="feature.duration"
-                                          [title]="feature.title"/>
+                                          [title]="feature.title" />
 
                             }
                         </div>
@@ -208,7 +211,7 @@
             </div>
 
             <div class="w-full lg:w-1/3">
-                <app-aside [feature]="feature()"/>
+                <app-aside [product]="product()" />
             </div>
         </div>
     </div>

@@ -1,10 +1,12 @@
 import { booleanAttribute, Component, computed, input } from '@angular/core';
 import clsx from 'clsx';
 import { RouterLink } from '@angular/router';
+import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
+import { Button } from '@/app/shared/components/button/button';
 
 @Component({
     selector: 'app-card',
-    imports: [RouterLink],
+    imports: [RouterLink, CurrencyPipe, NgOptimizedImage, Button],
     templateUrl: './card.html',
     styleUrl: './card.css',
 })
@@ -13,14 +15,11 @@ export class Card {
     readonly title = input('');
     readonly tag = input('');
     readonly duration = input('');
-    readonly price = input('');
+    readonly price = input<number>(0);
     readonly className = input('');
 
     getClass = computed(() =>
-        clsx(
-            'flex flex-col max-w-full md:max-w-75 rounded-2.5xl overflow-hidden h-full',
-            this.className(),
-        ),
+        clsx('flex h-full max-w-full flex-col overflow-hidden rounded-2.5xl md:max-w-75', this.className()),
     );
 
     getTitle = computed(() => {

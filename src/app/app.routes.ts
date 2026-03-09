@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { authGuard } from '@/app/core/auth/auth-guard';
+import { authCheckGuard } from '@/app/core/auth/auth-check-guard';
 import { authRequiredGuard } from '@/app/core/auth/auth-required-guard';
 
 export const routes: Routes = [
     {
         path: '',
-        canActivate: [authGuard],
+        canActivate: [authCheckGuard],
         children: [
             {
                 path: '',
@@ -19,6 +19,11 @@ export const routes: Routes = [
             {
                 path: 'page-list/detail/:title',
                 loadComponent: () => import('./features/page-detail/page-detail').then((m) => m.PageDetail),
+            },
+            {
+                path: 'page-list/booking',
+                canMatch: [authRequiredGuard],
+                loadComponent: () => import('./features/page-booking/page-booking').then((m) => m.PageBooking),
             },
             {
                 path: 'contact-us',

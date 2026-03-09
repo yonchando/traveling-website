@@ -5,9 +5,10 @@
 </app-slider>
 
 <div class="content px-4 md:px-10">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2">
         <div>
             <h2 class="header header-2">Contact Us.</h2>
+
             <span class="mt-4 flex flex-col gap-2">
                 <span>Name: {{ companyInfo()?.name }}</span>
                 <span>Email: {{ companyInfo()?.email }}</span>
@@ -18,9 +19,9 @@
                 @for (l of locations(); track $index; let i = $index) {
                     <div class="rounded-xl border border-secondary-100 p-6 shadow">
                         <app-button
-                                (click)="openIndex.set(i)"
-                                severity="outline"
-                                className="flex w-full items-center justify-between font-semibold">
+                            (click)="openIndex.set(i)"
+                            severity="outline"
+                            className="flex w-full items-center justify-between font-semibold">
                             Branch: {{ l.location }}, Contact number: {{ l.phone }}
                             @if (i === openIndex()) {
                                 <span class="dot bg-warning"></span>
@@ -38,28 +39,58 @@
                 }
             </div>
         </div>
-        <div>
+        <form [formGroup]="form">
             <h2 class="header header-2">Send us your contact</h2>
-            <p class="mb-4">We contact back in 1 - 2 working day.</p>
 
-            <div class="grid grid-cols-2 gap-4">
+            @if (message() != '') {
+                <p class="my-4 rounded-lg bg-green-500 p-4 font-medium text-gray-50">
+                    {{ message() }}
+                </p>
+            }
+
+            <div class="mt-6 grid grid-cols-2 gap-4">
                 <div>
-                    <app-input placeholder="Name*"/>
+                    <app-input formControlName="name" placeholder="Name*" />
+                    @if (name.invalid && (name.touched || name.dirty)) {
+                        <span class="mt-1 inline-block text-red-500">Name is required</span>
+                    }
                 </div>
                 <div>
-                    <app-input placeholder="Email*"/>
+                    <app-input formControlName="email" placeholder="Email*" />
+
+                    @if (email.invalid && (email.touched || email.dirty) && !!email.errors) {
+                        @if (email.errors['email']) {
+                            <span class="mt-1 inline-block text-red-500">Email must be a valid email format.</span>
+                        }
+
+                        @if (email.errors['required']) {
+                            <span class="mt-1 inline-block text-red-500">Email is required</span>
+                        }
+                    }
                 </div>
                 <div class="col-span-2">
-                    <app-input placeholder="Title*"/>
+                    <app-input formControlName="title" placeholder="Title*" />
+
+                    @if (title.invalid && (title.touched || title.dirty)) {
+                        <span class="mt-1 inline-block text-red-500">Title is required</span>
+                    }
                 </div>
                 <div class="col-span-2">
-                    <textarea rows="5" placeholder="Message*" class="w-full form-input p-4 h-auto"></textarea>
+                    <textarea
+                        formControlName="description"
+                        rows="5"
+                        placeholder="Message*"
+                        class="form-input h-auto w-full p-4"></textarea>
+
+                    @if (description.invalid && (description.touched || description.dirty)) {
+                        <span class="mt-1 inline-block text-red-500">Description is required</span>
+                    }
                 </div>
-                
+
                 <div>
-                    <app-button severity="primary" className="w-full">Send</app-button>
+                    <app-button (click)="sendEmail()" severity="primary" className="w-full">Send</app-button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>

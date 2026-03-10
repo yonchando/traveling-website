@@ -1,0 +1,28 @@
+<div class="content mt-10 px-4">
+    <app-hero-card bg="assets/images/bg.png">
+        <div class="flex flex-col items-center justify-center">
+            <div class="flex flex-col p-4">
+                <h2 class="header header-2">
+                    Grab up to
+                    <span class="text-warning">35% off</span>
+                    <br />
+                    on your favorite Destination
+                </h2>
+                <p>Limited time offer, don't miss the opportunity</p>
+                <app-button routerLink="/page-list/detail/get-off" class="mt-6" severity="primary">
+                    BOOK NOW
+                </app-button>
+            </div>
+        </div>
+
+        <div class="relative">
+            <app-shade shade="hero-card" className="absolute inset-0 -left-2 h-full" />
+            <img
+                class="h-full w-full"
+                ngSrc="assets/images/home/hero-card.png"
+                alt="Hero Card"
+                height="1818"
+                width="2250" />
+        </div>
+    </app-hero-card>
+</div>

@@ -1,0 +1,16 @@
+<div class="bg-white px-4 pt-25 md:px-20 lg:px-10 xl:px-20">
+    <div class="content">
+        <div class="flex items-center justify-between">
+            <h2 class="header header-2">Top Attractions</h2>
+            <div>
+                <app-button routerLink="/page-list">See all</app-button>
+            </div>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            @for (topA of topAttractions(); track topA.id) {
+                <app-card-column [title]="topA.title" [imageUrl]="topA.imageUrl" [count]="topA.visitedCount" />
+            }
+        </div>
+    </div>
+</div>

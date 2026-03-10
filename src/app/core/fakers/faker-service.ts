@@ -14,17 +14,15 @@ type ImageSize = {
     providedIn: 'root',
 })
 export class FakerService {
-    categories = [
-        'Explorer',
-        'Natural Beauty',
-        'Photography',
-        'Festivals',
-        'Adventurers',
-        'Historical Discoveries',
-        'Wildlife Watching',
-        'Beach Relaxation',
-        'Cultural Exploration',
-    ] as const;
+    private slug(input: string): string {
+        return input
+            .toLowerCase()
+            .trim()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '') // Remove accents
+            .replace(/[^a-z0-9\s-]/g, ' ') // Remove invalid chars
+            .replace(/[\s-]+/g, '-'); // Replace spaces with hyphens
+    }
 
     getProducts(size: number = 200, imageSize: ImageSize = { height: 199, width: 278 }) {
         let products: Product[] = [];
@@ -35,6 +33,17 @@ export class FakerService {
             cities.push(faker.location.city());
         }
 
+        const categories = [
+            { id: 1, code: 'EXPLORER', name: 'Explorer' },
+            { id: 2, code: 'NATURAL_BEAUTY', name: 'Natural Beauty' },
+            { id: 3, code: 'PHOTOGRAPHY', name: 'Photography' },
+            { id: 4, code: 'FESTIVALS', name: 'Festivals' },
+            { id: 5, code: 'ADVENTURERS', name: 'Adventurers' },
+            { id: 6, code: 'HISTORICAL_DISCOVERIES', name: 'Historical Discoveries' },
+            { id: 7, code: 'WILDLIFE_WATCHING', name: 'Wildlife Watching' },
+            { id: 8, code: 'BEACH_RELAXATION', name: 'Beach Relaxation' },
+            { id: 9, code: 'CULTURAL_EXPLORATION', name: 'Cultural Exploration' },
+        ];
         let countries = [];
 
         for (const i of range(10)) {
@@ -42,23 +51,21 @@ export class FakerService {
         }
 
         for (const i of range(size)) {
-            const index = faker.number.int({
-                min: 0,
-                max: this.categories.length - 1,
-            });
-            let category = this.categories[index];
-
             const title = 'Trip to ' + faker.location.city() + `, ${faker.location.country()}`;
 
             const id = faker.number.int({ min: 10, max: 16 });
 
             const price = faker.number.float({ min: 100, max: 10000 });
 
+            const categoryIndex = faker.number.int({ min: 0, max: categories.length - 1 });
+            const category = categories[categoryIndex];
+
             products.push({
-                id: i,
+                id: i + 1,
+                slug: this.slug(title),
                 title: title,
                 price: price,
-                category: category,
+                category: category.code,
                 duration: `${faker.number.int({ min: 1, max: 12 })}h ${faker.number.int({ min: 1, max: 60 })}mm`,
                 imageUrl: `https://picsum.photos/id/${id}/${imageSize.width}/${imageSize.height}`,
                 tag: faker.airline.airplane().name,

@@ -1,7 +1,5 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Slider } from '@/app/shared/components/slider/slider';
-import { Feature } from '@/app/features/home/home-service';
-import { ActivatedRoute } from '@angular/router';
 import { RateStar } from '@/app/shared/components/rate-star/rate-star';
 import { Thumbnail } from '@/app/shared/components/thumbnail/thumbnail';
 import { Aside } from '@/app/features/page-detail/aside/aside';
@@ -26,7 +24,7 @@ export class PageDetail implements OnInit {
 
     product = signal<Product | null>(null);
 
-    features = signal<Feature[]>([]);
+    features = signal<any[]>([]);
 
     getThumbnails = signal<{ imageUrl: string; className: string }[]>([]);
 

@@ -2,7 +2,7 @@ import { Component, computed, effect, ElementRef, inject, signal, viewChild } fr
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { SafeHtmlPipe } from '@/app/shared/pipes/safe-html-pipe';
 import { Button } from '@/app/shared/components/button/button';
-import { HomeService } from '@/app/features/home/home-service';
+import { AuthService } from '@/app/shared/services/auth-service';
 
 type MenuItem = {
     label: string;
@@ -19,8 +19,8 @@ type MenuItem = {
     styleUrl: './header.css',
 })
 export class Header {
-    homeService = inject(HomeService);
     router = inject(Router);
+    authService = inject(AuthService);
 
     mobileMenuOpen = signal(false);
     profileDropdown = signal(false);
@@ -83,13 +83,13 @@ export class Header {
                     </defs>
                     </svg>
                     `,
-                hide: this.homeService.username() !== '',
+                hide: this.authService.user?.username !== '',
                 active: true,
             },
         ];
     });
 
-    username = computed(() => this.homeService.username());
+    username = computed(() => this.authService.user?.username ?? '');
 
     getFirstCharacter = computed(() => this.username().charAt(0).toLowerCase());
 
@@ -125,7 +125,6 @@ export class Header {
 
     async logout() {
         sessionStorage.removeItem('username');
-        this.homeService.username.set('');
         await this.router.navigate(['/']);
     }
 }

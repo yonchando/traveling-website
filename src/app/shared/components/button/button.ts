@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import clsx from 'clsx';
 import { Router } from '@angular/router';
 
@@ -23,8 +23,8 @@ export class Button {
     className = input<string>('');
     type = input<'button' | 'submit'>('button');
     disabled = input(false);
-
-    link = input<string>('');
+    
+    btnClick = output<Event>();
 
     protected classNames() {
         return clsx('btn', this.className(), {
@@ -37,9 +37,7 @@ export class Button {
         });
     }
 
-    onClick = () => {
-        if (this.link()) {
-            this.router.navigateByUrl(this.link());
-        }
+    onClick = (event: Event) => {
+        this.btnClick.emit(event);
     };
 }

@@ -1,13 +1,13 @@
 import { CanActivateFn } from '@angular/router';
 import { inject } from '@angular/core';
-import { HomeService } from '@/app/features/home/home-service';
+import { ApiService } from '@/app/shared/services/api-service';
 
 export const authCheckGuard: CanActivateFn = () => {
     const username = sessionStorage.getItem('username');
 
-    const homeService = inject(HomeService);
+    const productService = inject(ApiService);
 
-    homeService.username.set(username ?? '');
+    productService.username.set(username ?? '');
 
     return true;
 };

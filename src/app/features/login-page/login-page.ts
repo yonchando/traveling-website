@@ -5,7 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { Button } from '@/app/shared/components/button/button';
 import { Checkbox } from '@/app/shared/components/forms/checkbox/checkbox';
 import { Router, RouterLink } from '@angular/router';
-import { HomeService } from '@/app/features/home/home-service';
+import { AuthService } from '@/app/shared/services/auth-service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@/environments/environment';
 
 @Component({
     selector: 'app-login-page',
@@ -14,8 +16,9 @@ import { HomeService } from '@/app/features/home/home-service';
     styleUrl: './login-page.css',
 })
 export class LoginPage {
-    homeService = inject(HomeService);
+    authService = inject(AuthService);
     router = inject(Router);
+    http = inject(HttpClient);
 
     username = signal('');
     password = signal('');
@@ -23,7 +26,9 @@ export class LoginPage {
     login() {
         sessionStorage.setItem('username', this.username());
 
-        this.homeService.username.set(this.username());
+        this.http.get(`${environment.apiUrl}/login?username=${this.username()}&password=${this.password()}`).subscribe({
+            next: (res) => {},
+        });
 
         window.history.back();
     }

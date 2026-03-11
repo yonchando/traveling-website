@@ -1,11 +1,11 @@
 import { Component, input } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, NgOptimizedImage } from '@angular/common';
 import { IconEye } from '@/app/shared/components/svg/eye/eye';
 import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-card-column',
-    imports: [DecimalPipe, IconEye, RouterLink],
+    imports: [DecimalPipe, IconEye, RouterLink, NgOptimizedImage],
     templateUrl: './card-column.html',
     styleUrl: './card-column.css',
 })

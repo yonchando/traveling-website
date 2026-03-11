@@ -24,11 +24,11 @@
         <div class="mt-4 items-center gap-2 border-secondary-100 md:col-span-3 md:flex md:flex-col md:border-l md:pl-4">
             <div class="mt-4 flex flex-col gap-2 md:mt-auto md:items-center">
                 <span
-                >From
+                    >From
                     <span class="text-base font-medium">{{ product.price | currency }}</span>
                 </span>
                 <app-button
-                    (click)="router.navigate(['page-list/detail/', product.title])"
+                    [routerLink]="['/page-list/detail/', product.slug]"
                     className="mt-4 hidden md:inline-flex"
                     severity="primary">
                     View Details
@@ -37,18 +37,15 @@
         </div>
 
         <div class="flex justify-between md:hidden">
-            <app-button
-                (click)="router.navigate(['page-list/detail/', product.title])"
-                className="mt-4"
-                severity="primary">
+            <app-button [routerLink]="['/page-list/detail/', product.slug]" className="mt-4" severity="primary">
                 View Details
             </app-button>
         </div>
     </div>
 }
-<div class="mt-6 flex justify-center">
-    <app-button severity="warning" (click)="nextPage()">
-        View more
-    </app-button>
-</div>
 
+@if (!pageService.isLasPage()) {
+    <div class="mt-6 flex justify-center">
+        <app-button severity="warning" (click)="nextPage()"> View more</app-button>
+    </div>
+}

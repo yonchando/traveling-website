@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Slider } from '@/app/shared/components/slider/slider';
 import { faker } from '@faker-js/faker/locale/en';
 import { User } from '@/app/interfaces/user-interface';
 import { NgOptimizedImage } from '@angular/common';
+import { AuthService } from '@/app/shared/services';
 
 @Component({
     selector: 'app-user-profile',
@@ -11,18 +12,9 @@ import { NgOptimizedImage } from '@angular/common';
     styleUrl: './user-profile.css',
 })
 export class UserProfile {
-    user = signal<User | null>(null);
+    user = computed(() => {
+        const user = sessionStorage.getItem('user');
 
-    constructor() {
-        this.user.set({
-            id: 0,
-            password: '',
-            gender: '',
-            name: faker.person.fullName(),
-            username: faker.person.fullName(),
-            email: faker.internet.email(),
-            avatar: faker.image.avatar(),
-            phone: '',
-        });
-    }
+        return user ? JSON.parse(user) : null;
+    });
 }

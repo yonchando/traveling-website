@@ -1,5 +1,5 @@
 export interface Paginate<T> {
-    data: T[];
+    data: T;
     first: number;
     prev: number;
     next: number;
@@ -10,7 +10,7 @@ export interface Paginate<T> {
 }
 
 export interface Product {
-    id: number;
+    id: string;
     title: string;
     slug: string;
     price: number;
@@ -21,7 +21,6 @@ export interface Product {
     visitedCount: number;
     date: string;
     author: string;
-    city: string;
     country: string;
     content: string;
     rating: number;

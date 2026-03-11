@@ -44,11 +44,53 @@ export class FakerService {
             { id: 8, code: 'BEACH_RELAXATION', name: 'Beach Relaxation' },
             { id: 9, code: 'CULTURAL_EXPLORATION', name: 'Cultural Exploration' },
         ];
-        let countries = [];
-
-        for (const i of range(10)) {
-            countries.push(faker.location.country());
-        }
+        let countries = [
+            {
+                id: '2',
+                code: 'MEXICO',
+                name: 'Mexico',
+            },
+            {
+                id: '3',
+                code: 'SUDAN',
+                name: 'Sudan',
+            },
+            {
+                id: '4',
+                code: 'PANAMA',
+                name: 'Panama',
+            },
+            {
+                id: '5',
+                code: 'TAIWAN',
+                name: 'Taiwan',
+            },
+            {
+                id: '6',
+                code: 'NIUE',
+                name: 'Niue',
+            },
+            {
+                id: '7',
+                code: 'PANAMA',
+                name: 'Panama',
+            },
+            {
+                id: '8',
+                code: 'SAUDI_ARABIA',
+                name: 'Saudi Arabia',
+            },
+            {
+                id: '9',
+                code: 'MOROCCO',
+                name: 'Morocco',
+            },
+            {
+                id: '10',
+                code: 'BOUVET_ISLAND',
+                name: 'Bouvet Island',
+            },
+        ];
 
         for (const i of range(size)) {
             const title = 'Trip to ' + faker.location.city() + `, ${faker.location.country()}`;
@@ -61,7 +103,7 @@ export class FakerService {
             const category = categories[categoryIndex];
 
             products.push({
-                id: i + 1,
+                id: `${i + 1}`,
                 slug: this.slug(title),
                 title: title,
                 price: price,
@@ -73,8 +115,7 @@ export class FakerService {
                 author: faker.company.name(),
                 date: dayjs(faker.date.soon({ days: 10 })).format('YYYY-MM-DD HH:mm:ss'),
 
-                city: cities[faker.number.int({ min: 0, max: cities.length - 1 })],
-                country: countries[faker.number.int({ min: 0, max: countries.length - 1 })],
+                country: countries[faker.number.int({ min: 0, max: countries.length - 1 })].code,
 
                 content: faker.lorem.paragraph(4),
                 discount: faker.number.binary() ? (price * faker.number.int({ min: 1, max: 10 })) / 100 : 0,
@@ -84,41 +125,5 @@ export class FakerService {
         }
 
         return of([...products]);
-    }
-
-    getCategories(products: Product[], size: number = 15) {
-        let categories: string[] = [];
-
-        products.forEach((p, i) => {
-            if (i < size && !categories.includes(p.category)) {
-                categories.push(p.category);
-            }
-        });
-
-        return categories;
-    }
-
-    getCities(products: Product[], size: number = 15) {
-        let cities: string[] = [];
-
-        products.forEach((p, i) => {
-            if (i < size && !cities.includes(p.city)) {
-                cities.push(p.city);
-            }
-        });
-
-        return cities;
-    }
-
-    getCountries(products: Product[], size: number = 15) {
-        let countries: string[] = [];
-
-        products.forEach((p, i) => {
-            if (i < size && !countries.includes(p.country)) {
-                countries.push(p.country);
-            }
-        });
-
-        return countries;
     }
 }

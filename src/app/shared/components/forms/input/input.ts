@@ -24,7 +24,10 @@ export class Input extends DefaultValueAccessor {
     value = model('');
     getClassName = computed(() => clsx('form-input', this.className()));
 
-    typing = output<string>();
+    typing = output<{
+        e: Event,
+        value: string,
+    }>();
 
     override writeValue(value: string): void {
         this.value.set(value);
@@ -35,6 +38,9 @@ export class Input extends DefaultValueAccessor {
         this.value.set(value);
         this.onChange(value);
 
-        this.typing.emit(value);
+        this.typing.emit({
+            e: event,
+            value: value,
+        });
     }
 }

@@ -11,6 +11,7 @@
     --color-secondary-100: #e7e6e6;
     --color-secondary-200: #eff7f1;
     --color-dark: #717171;
+    --color-light: var(--color-white);
 
     --radius-2\.5xl: 1.25rem;
 }
@@ -27,7 +28,7 @@
         @apply font-bold;
 
         &.header-2 {
-            @apply leading-6 md:leading-8 lg:leading-11;
+            @apply leading-6 md:leading-8 lg:leading-10;
             font-size: clamp(1rem, 2.5vw, 3.5rem);
         }
 
@@ -47,6 +48,10 @@
     .btn {
         @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-6 py-3;
         font-size: clamp(0.75rem, 1vw, 0.875rem);
+
+        @variant focus-visible {
+            @apply ring-white bg-light outline-light outline-2;
+        }
 
         &.btn-primary {
             @apply bg-primary text-white;
@@ -95,6 +100,10 @@
         @variant placeholder {
             @apply text-dark/35;
         }
+    }
+
+    .form-invalid {
+        @apply mt-4 absolute top-1/2 translate-y-1/2 bg-light px-3 py-1.5 rounded-lg z-30;
     }
 
     .form-check {

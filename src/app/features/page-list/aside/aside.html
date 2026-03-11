@@ -1,40 +1,18 @@
 <div class="rounded-t-xl bg-warning p-6">
     <h3 class="header header-4 text-white">When are you traveling?</h3>
-    <app-input [value]="date()" className="mt-4" />
 </div>
 
 <div class="p-8">
     <div class="border-b border-b-gray-200 pb-4">
         <app-button severity="outline" className="p-0 text-lg font-medium text-body"> Categories</app-button>
         <ul class="mt-4 flex flex-col gap-2">
-            @for (cat of categories(); track cat) {
+            @for (cat of categories(); track cat.code) {
                 <li>
-                    <app-checkbox [value]="cat" (picked)="filterCategory($event)" [label]="cat" />
-                </li>
-            }
-        </ul>
-    </div>
-
-    <div class="mt-4 border-b border-b-gray-200 pb-4">
-        <h3 class="header header-4 btn-trigger">Filter Price</h3>
-        <div class="mt-4 flex flex-col gap-4">
-            <div>
-                <label for="min_price">Min price</label>
-                <app-input (typing)="setPrice($event,'min_price')" className="mt-2" placeholder="Min Price" id="min_price" />
-            </div>
-            <div>
-                <label for="max_price">Max price</label>
-                <app-input (typing)="setPrice($event,'max_price')" className="mt-2" placeholder="Max Price" id="max_price" />
-            </div>
-        </div>
-    </div>
-
-    <div class="mt-4 border-b border-b-gray-200 pb-4">
-        <app-button severity="outline" className="p-0 text-lg font-medium text-body"> City</app-button>
-        <ul class="mt-4 flex flex-col gap-2">
-            @for (city of cities(); track city) {
-                <li>
-                    <app-checkbox [value]="city" (picked)="filterCity($event)" [label]="city" />
+                    <app-checkbox
+                        [value]="cat"
+                        (picked)="filterCategory($event)"
+                        [isChecked]="pageService.categoryCodes().includes(cat.code)"
+                        [label]="cat.name" />
                 </li>
             }
         </ul>
@@ -45,9 +23,47 @@
         <ul class="mt-4 flex flex-col gap-2">
             @for (country of countries(); track country) {
                 <li>
-                    <app-checkbox [value]="country" (picked)="filterCountry($event)" [label]="country" />
+                    <app-checkbox
+                        [value]="country"
+                        (picked)="filterCountry($event)"
+                        [isChecked]="pageService.countryCodes().includes(country.code)"
+                        [label]="country.name" />
                 </li>
             }
         </ul>
+    </div>
+
+    <div class="mt-4 border-b border-b-gray-200 pb-4">
+        <h3 class="header header-4 btn-trigger">Filter Price</h3>
+        <div class="mt-4 flex flex-col gap-4">
+            <div>
+                <label for="min_price">Min price</label>
+                <app-input
+                    (typing)="setPrice($event, 'min_price')"
+                    [value]="pageService.minPrice()"
+                    type="number"
+                    className="mt-2"
+                    placeholder="Min Price"
+                    id="min_price" />
+            </div>
+            <div>
+                <label for="max_price">Max price</label>
+                <app-input
+                    (typing)="setPrice($event, 'max_price')"
+                    [value]="pageService.maxPrice()"
+                    type="number"
+                    className="mt-2"
+                    placeholder="Max Price"
+                    id="max_price" />
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 pb-4">
+        <div class="mt-4 flex flex-col gap-4">
+            <app-button (btnClick)="clearFilter()" severity="warning">
+                Clear filter
+            </app-button>
+        </div>
     </div>
 </div>

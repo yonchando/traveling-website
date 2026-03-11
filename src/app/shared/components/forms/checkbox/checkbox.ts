@@ -1,4 +1,14 @@
-import { booleanAttribute, Component, ElementRef, forwardRef, input, output, signal, viewChild } from '@angular/core';
+import {
+    booleanAttribute,
+    Component,
+    ElementRef,
+    forwardRef,
+    input,
+    model,
+    output,
+    signal,
+    viewChild,
+} from '@angular/core';
 import { CheckboxControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -26,13 +36,13 @@ export class Checkbox extends CheckboxControlValueAccessor {
     });
 
     value = input<any>(null);
-    isChecked = signal(false);
+    isChecked = model(false);
 
     formControl = signal<any>(null);
 
     inputElement = viewChild<ElementRef<HTMLInputElement>>('inputElement');
 
-    picked = output<{ e: Event; value: any }>();
+    picked = output<{ isChecked: boolean; value: any }>();
 
     override writeValue(value: any) {
         this.isChecked.set(value === this.value() || !!value);
@@ -49,11 +59,12 @@ export class Checkbox extends CheckboxControlValueAccessor {
 
     protected onInput(e: Event) {
         const el = e.target as HTMLInputElement;
+
         this.onChange(el.value);
 
         this.picked.emit({
-            e,
-            value: el.value,
+            isChecked: el.checked,
+            value: this.value(),
         });
     }
 

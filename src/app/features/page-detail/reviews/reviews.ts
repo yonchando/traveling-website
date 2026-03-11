@@ -1,30 +1,27 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import clsx from 'clsx';
 import { RateStar } from '@/app/shared/components/rate-star/rate-star';
 import { Thumbnail } from '@/app/shared/components/thumbnail/thumbnail';
 import { Button } from '@/app/shared/components/button/button';
-import { faker } from '@faker-js/faker/locale/en';
-import dayjs from 'dayjs';
 import { Input } from '@/app/shared/components/forms/input/input';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-
-type Comment = {
-    name: string;
-    title: string;
-    comment: string;
-    rating: number;
-    reviewCount: number;
-    date: string;
-    posts: string;
-};
+import { Comment } from '@/app/interfaces/comment-interface';
+import { range } from '@/app/shared/ultils/iterator-util';
+import { ApiService } from '@/app/shared/services';
+import { Product } from '@/app/interfaces/product-interface';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-reviews',
-    imports: [RateStar, Thumbnail, Button, Input, FormsModule, ReactiveFormsModule],
+    imports: [RateStar, Thumbnail, Button, Input, FormsModule, ReactiveFormsModule, DatePipe],
     templateUrl: './reviews.html',
     styleUrl: './reviews.css',
 })
 export class Reviews implements OnInit {
+    api = inject(ApiService);
+
+    product = input.required<Product>();
+
     reviews = signal([
         {
             name: 'Overall Rating',
@@ -65,34 +62,40 @@ export class Reviews implements OnInit {
 
     comments = signal<Comment[]>([]);
 
-    categories = signal(['Food', 'Location', 'Amenities', 'Rooms', 'Tour Operator']);
-
     category = signal('');
 
-    form = new FormGroup({
-        name: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        title: new FormControl('', [Validators.required]),
-        comment: new FormControl('', [Validators.required]),
-        rate: new FormControl(-1, [Validators.required]),
+    form = new FormGroup<any>({
+        name: new FormControl(null, [Validators.required]),
+        email: new FormControl(null, [Validators.required, Validators.email]),
+        title: new FormControl(null, [Validators.required]),
+        comment: new FormControl(null, [Validators.required]),
+        rate: new FormControl(-1, [Validators.required, Validators.min(1)]),
     });
 
+    get name() {
+        return this.form.get('name') as FormControl;
+    }
+    get email() {
+        return this.form.get('email') as FormControl;
+    }
+    get title() {
+        return this.form.get('title') as FormControl;
+    }
+    get comment() {
+        return this.form.get('comment') as FormControl;
+    }
+    get rate() {
+        return this.form.get('rate') as FormControl;
+    }
+
     ngOnInit() {
-        for (let i = 0; i < 3; i++) {
-            this.comments().push({
-                name: faker.person.fullName(),
-                title: faker.word.adverb(),
-                comment: faker.lorem.paragraphs(),
-                rating: faker.number.float({
-                    min: 1,
-                    max: 5,
-                    fractionDigits: 1,
-                }),
-                reviewCount: faker.number.int({ max: 1_000 }),
-                date: dayjs(faker.date.past()).format('MMMM YYYY'),
-                posts: faker.image.urlPicsumPhotos(),
+        this.api
+            .getComments(0, 5, {
+                'productId:contains': this.product().id,
+            })
+            .subscribe((res) => {
+                this.comments.set(res.data);
             });
-        }
     }
 
     getReviewClassName(index: number, isFirst: boolean, isLast: boolean) {
@@ -110,14 +113,17 @@ export class Reviews implements OnInit {
             return;
         }
 
-        this.comments().push({
-            comment: this.form.get('comment')?.value || '',
-            date: dayjs().format('MMMM YYYY'),
-            name: this.form.get('name')?.value || '',
-            posts: '',
-            rating: Number(this.form.get('rate')?.value || ''),
-            reviewCount: 1,
-            title: this.form.get('title')?.value || '',
+        this.api.comment(this.form.value, this.product().id).subscribe((res) => {
+            this.comments.update((comments) => [...comments, res]);
+            this.form.reset();
         });
+    }
+
+    isInvalid(form: FormControl) {
+        return form.invalid && (form.dirty || form.touched);
+    }
+
+    protected getRange(number: number) {
+        return range(number);
     }
 }

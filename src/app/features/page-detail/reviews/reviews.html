@@ -20,11 +20,11 @@
             <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                 <span class="flex items-center gap-2">
                     <span class="inline-flex size-10 items-center justify-center rounded-full bg-black text-white">
-                        {{ c.name.charAt(0).toUpperCase() }}
+                        {{ c.user.name.charAt(0).toUpperCase() }}
                     </span>
-                    <span>{{ c.name }}</span>
+                    <span>{{ c.user.name }}</span>
                 </span>
-                <span>{{ c.date }}</span>
+                <span>{{ c.date | date }}</span>
             </div>
 
             <div class="mt-3 flex flex-col gap-2 md:flex-row md:items-center">
@@ -43,9 +43,21 @@
             </p>
 
             <div class="mt-6 flex gap-4">
-                <app-thumbnail className="h-auto w-32" imageUrl="assets/images/home/reviews/image.png" />
-                <app-thumbnail className="h-auto w-32" imageUrl="assets/images/home/reviews/image-1.png" />
-                <app-thumbnail className="h-auto w-32" imageUrl="assets/images/home/reviews/image-2.png" />
+                <app-thumbnail
+                    width="128"
+                    height="128"
+                    className="h-auto w-32"
+                    imageUrl="assets/images/home/reviews/image.png" />
+                <app-thumbnail
+                    width="128"
+                    height="128"
+                    className="h-auto w-32"
+                    imageUrl="assets/images/home/reviews/image-1.png" />
+                <app-thumbnail
+                    width="128"
+                    height="128"
+                    className="h-auto w-32"
+                    imageUrl="assets/images/home/reviews/image-2.png" />
             </div>
 
             <div class="mt-4 flex gap-4">
@@ -75,36 +87,23 @@
 
     <p class="mt-8">Your email address will not be published. Required fields are marked *</p>
 
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 md:gap-y-4 lg:grid-cols-3">
-        @for (c of categories(); track $index) {
-            <app-button
-                (click)="category.set(c)"
-                className="rounded-xl"
-                [severity]="category() === c ? 'primary' : 'default'">
-                {{ c }}
-            </app-button>
-        }
-    </div>
-
     <form (ngSubmit)="postComment()" [formGroup]="form" class="mt-8 flex flex-col gap-4">
         <div class="grid grid-cols-2 gap-8">
             <div>
                 <app-input placeholder="Name*" formControlName="name" />
-                @if (
-                    form.controls.name.invalid &&
-                    (form.controls.name.dirty || form.controls.name.touched) &&
-                    form.controls.name.hasError('required')
-                ) {
-                    <span class="text-sm text-warning">Name is required</span>
+                @if (isInvalid(name)) {
+                    @if (name.hasError('required')) {
+                        <span class="text-sm text-warning">Name is required</span>
+                    }
                 }
             </div>
             <div>
                 <app-input placeholder="Email*" formControlName="email" />
-                @if (form.controls.email.invalid && (form.controls.email.dirty || form.controls.email.touched)) {
-                    @if (form.controls.email.hasError('required')) {
+                @if (isInvalid(email)) {
+                    @if (email.hasError('required')) {
                         <span class="text-sm text-warning">Name is required</span>
                     }
-                    @if (form.controls.email.hasError('email')) {
+                    @if (email.hasError('email')) {
                         <span class="text-sm text-warning">Invalid email</span>
                     }
                 }
@@ -112,30 +111,22 @@
         </div>
         <div>
             <app-input placeholder="Title*" formControlName="title" />
-            @if (
-                form.controls.title.invalid &&
-                (form.controls.title.dirty || form.controls.title.touched) &&
-                form.controls.title.hasError('required')
-            ) {
-                <span class="text-sm text-warning">Name is required</span>
+            @if (isInvalid(title) && title.hasError('required')) {
+                <span class="text-sm text-warning">Title is required</span>
             }
         </div>
         <div>
             <textarea placeholder="Comment*" formControlName="comment" class="form-input h-40 w-full p-4"></textarea>
-            @if (
-                form.controls.comment.invalid &&
-                (form.controls.comment.dirty || form.controls.comment.touched) &&
-                form.controls.comment.hasError('required')
-            ) {
-                <span class="text-sm text-warning">Name is required</span>
+            @if (isInvalid(comment) && comment.hasError('required')) {
+                <span class="text-sm text-warning">Comment is required</span>
             }
         </div>
 
         <div class="flex flex-col gap-2">
             <div class="flex gap-2">
-                @for (r of [1, 2, 3, 4, 5]; track r) {
+                @for (r of getRange(5); track r) {
                     <app-button severity="outline" (click)="form.patchValue({ rate: r })" className="p-0">
-                        @if (r <= (form.controls.rate.value ?? -1)) {
+                        @if (r <= (rate.value ?? -1)) {
                             <svg
                                 width="24"
                                 height="24"
@@ -161,11 +152,11 @@
                     </app-button>
                 }
             </div>
-            @if (form.controls.rate.value === -1 && (form.controls.rate.dirty || form.controls.rate.touched)) {
+            @if (rate.value === -1 && isInvalid(rate)) {
                 <span class="text-sm text-warning">Rate is required</span>
             }
         </div>
 
-        <app-button severity="primary" type="submit" className="mt-8">Post Comment </app-button>
+        <app-button severity="primary" type="submit" className="mt-8">Post Comment</app-button>
     </form>
 </div>

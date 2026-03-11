@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { authCheckGuard } from '@/app/core/auth/auth-check-guard';
+import { authGuard } from '@/app/core/auth/auth-guard';
 import { authRequiredGuard } from '@/app/core/auth/auth-required-guard';
 
 export const routes: Routes = [
     {
         path: '',
-        canActivate: [authCheckGuard],
+        canActivate: [authGuard],
         children: [
             {
                 path: '',
@@ -17,13 +17,8 @@ export const routes: Routes = [
                 loadComponent: () => import('./features/page-list/page-list').then((m) => m.PageList),
             },
             {
-                path: 'page-list/detail/:title',
+                path: 'page-list/detail/:slug',
                 loadComponent: () => import('./features/page-detail/page-detail').then((m) => m.PageDetail),
-            },
-            {
-                path: 'page-list/booking',
-                canMatch: [authRequiredGuard],
-                loadComponent: () => import('./features/page-booking/page-booking').then((m) => m.PageBooking),
             },
             {
                 path: 'contact-us',
@@ -45,6 +40,10 @@ export const routes: Routes = [
             {
                 path: 'login',
                 loadComponent: () => import('./features/login-page/login-page').then((m) => m.LoginPage),
+            },
+            {
+                path: 'register',
+                loadComponent: () => import('./features/register-page/register-page').then((m) => m.RegisterPage),
             },
             {
                 path: 'data-privacy',

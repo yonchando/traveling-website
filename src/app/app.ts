@@ -8,6 +8,8 @@ import { User } from '@/app/interfaces/user-interface';
 import { faker } from '@faker-js/faker/locale/en';
 import { fa, fakerKA_GE } from '@faker-js/faker';
 import { FakerService } from '@/app/core/fakers/faker-service';
+import { range } from '@/app/shared/ultils/iterator-util';
+import { Country } from '@/app/interfaces/location-interface';
 
 @Component({
     selector: 'app-root',
@@ -26,9 +28,6 @@ export class App implements OnInit, AfterViewInit {
     scrollUp = viewChild.required<ElementRef<HTMLDivElement>>('scrollUp');
 
     ngOnInit() {
-        // this.faker.getProducts(500).subscribe((products) => {
-        //     console.log(products);
-        // });
     }
 
     ngAfterViewInit() {

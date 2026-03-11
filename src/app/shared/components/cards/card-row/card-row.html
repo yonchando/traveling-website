@@ -1,16 +1,13 @@
-<div class="flex flex-col relative">
-    <span class="absolute top-4 left-4 bg-white rounded-full px-4 py-3 font-medium">{{ tag() }}</span>
-    <img [class]="getImageClass()" [src]="imageUrl()" alt="Image 1">
+<div class="relative flex flex-col">
+    <span class="absolute top-4 left-4 rounded-full bg-white px-4 py-3 font-medium">{{ category() }}</span>
+    <img [class]="getImageClass()" [ngSrc]="imageUrl()" alt="Image 1" width="279" height="199" loading="lazy" />
 
     <div class="mt-8">
-        <span>
-            {{ date() }} | By {{ author() }}
-        </span>
+        <span> {{ date() | date }} | By {{ author() }} </span>
         <h2 class="header header-3 mt-4">
-            <a [routerLink]="['/page-list/detail/',title()]">
-                {{ title() }}
+            <a [routerLink]="['/page-list/detail/', title()]">
+                {{ title() | stringlength }}
             </a>
         </h2>
     </div>
-
 </div>

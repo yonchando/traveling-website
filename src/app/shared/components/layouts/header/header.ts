@@ -3,6 +3,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { SafeHtmlPipe } from '@/app/shared/pipes/safe-html-pipe';
 import { Button } from '@/app/shared/components/button/button';
 import { AuthService } from '@/app/shared/services/auth-service';
+import { NgOptimizedImage } from '@angular/common';
 
 type MenuItem = {
     label: string;
@@ -14,13 +15,12 @@ type MenuItem = {
 
 @Component({
     selector: 'app-header',
-    imports: [RouterLink, RouterLinkActive, SafeHtmlPipe, Button],
+    imports: [RouterLink, RouterLinkActive, SafeHtmlPipe, Button, NgOptimizedImage],
     templateUrl: './header.html',
     styleUrl: './header.css',
 })
 export class Header {
     router = inject(Router);
-    authService = inject(AuthService);
 
     mobileMenuOpen = signal(false);
     profileDropdown = signal(false);
@@ -83,13 +83,16 @@ export class Header {
                     </defs>
                     </svg>
                     `,
-                hide: this.authService.user?.username !== '',
+                hide: this.username() !== '' ? true : undefined,
                 active: true,
             },
         ];
     });
 
-    username = computed(() => this.authService.user?.username ?? '');
+    username = computed(() => {
+        const user = sessionStorage.getItem('user');
+        return user ? JSON.parse(user).username : '';
+    });
 
     getFirstCharacter = computed(() => this.username().charAt(0).toLowerCase());
 
@@ -124,7 +127,7 @@ export class Header {
     }
 
     async logout() {
-        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('user');
         await this.router.navigate(['/']);
     }
 }

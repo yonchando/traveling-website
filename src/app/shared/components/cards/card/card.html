@@ -4,6 +4,7 @@
         [ngSrc]="imageUrl()"
         [alt]="title()"
         aria-hidden="true"
+        priority
         width="278"
         height="199" />
 
@@ -14,15 +15,19 @@
             </ng-content>
         </div>
         <h3 class="header header-4 overflow-hidden text-ellipsis">
-            <a [routerLink]="['/page-list/detail/', title()]">
-                {{ getTitle() }}
+            <a [routerLink]="['/page-list/detail/', slug()]">
+                {{ title() | stringlength }}
             </a>
         </h3>
         @if (price()) {
             <div class="mt-auto">
                 <span class="inline-block w-full border-b border-b-secondary-100"></span>
-                <div class="flex items-center justify-between py-4">
-                    <app-button [routerLink]="['/page-list/detail/', title()]" severity="primary">Book now</app-button>
+                <div
+                    class="flex flex-col-reverse items-start justify-between py-4 2xl:flex-row-reverse 2xl:items-center">
+                    <app-button className="mt-4 2xl:mt-auto" [routerLink]="['/page-list/detail/', slug()]"
+                                severity="primary">Book
+                        now
+                    </app-button>
                     <span>
                         From
                         <span class="font-bold">{{ price() | currency }}</span>

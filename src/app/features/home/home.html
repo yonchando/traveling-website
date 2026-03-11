@@ -3,8 +3,7 @@
         <div class="text-center text-white">
             <h2 class="text-7xl font-semibold">Your world of joy</h2>
             <p class="mt-2.5 text-base">
-                From local escapes to far-flung adventures, find what makes you happy anytime,
-                anywhere
+                From local escapes to far-flung adventures, find what makes you happy anytime, anywhere
             </p>
         </div>
     </app-slider>
@@ -18,8 +17,7 @@
                         @for (cat of categories(); track cat.id) {
                             <app-button
                                 (btnClick)="changeFeatureCategory(cat.code)"
-                                [severity]="cat.code === category() ? 'primary' : 'default'"
-                            >
+                                [severity]="cat.code === category() ? 'primary' : 'default'">
                                 {{ cat.name }}
                             </app-button>
                         }
@@ -34,7 +32,8 @@
                         [tag]="feature.tag"
                         [price]="feature.price"
                         [duration]="feature.category"
-                        [title]="feature.title" />
+                        [title]="feature.title"
+                        [slug]="feature.slug" />
                 }
             </div>
         </div>
@@ -50,10 +49,8 @@
             </div>
 
             <app-trending-destinations />
-
         </div>
     </div>
-
 
     <app-promotion />
 
@@ -74,14 +71,13 @@
                             [tag]="feature.tag"
                             [price]="feature.price"
                             [duration]="feature.duration"
-                            [title]="feature.title" />
+                            [title]="feature.title"
+                            [slug]="feature.slug" />
                     }
                 </div>
 
                 <div class="flex justify-center">
-                    <app-button routerLink="/page-list" className="mt-10" severity="warning">
-                        See all
-                    </app-button>
+                    <app-button routerLink="/page-list" className="mt-10" severity="warning"> See all </app-button>
                 </div>
             </div>
         </div>
@@ -100,7 +96,7 @@
                     [imageUrl]="article.imageUrl"
                     [date]="article.date"
                     [author]="article.author"
-                    [tag]="article.tag"
+                    [category]="article.category"
                     [title]="article.title" />
             }
         </div>

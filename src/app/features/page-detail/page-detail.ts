@@ -10,8 +10,9 @@ import { UsersIcon } from '@/app/shared/components/svg/users-icon/users-icon';
 import { InnerJoinIcon } from '@/app/shared/components/svg/inner-join/inner-join-icon';
 import { GlobeIcon } from '@/app/shared/components/svg/globe-icon/globe-icon';
 import { NgComponentOutlet } from '@angular/common';
-import { FakerService } from '@/app/core/fakers/faker-service';
 import { Product } from '@/app/interfaces/product-interface';
+import { ApiService } from '@/app/shared/services';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-page-detail',
@@ -20,11 +21,13 @@ import { Product } from '@/app/interfaces/product-interface';
     styleUrl: './page-detail.css',
 })
 export class PageDetail implements OnInit {
-    fakerService = inject(FakerService);
+    api = inject(ApiService);
+    route = inject(ActivatedRoute);
+    router = inject(Router);
 
     product = signal<Product | null>(null);
 
-    features = signal<any[]>([]);
+    youMaybeLikes = signal<any[]>([]);
 
     getThumbnails = signal<{ imageUrl: string; className: string }[]>([]);
 
@@ -49,6 +52,10 @@ export class PageDetail implements OnInit {
     });
 
     ngOnInit() {
-        this.fakerService.getProducts(1).subscribe((products) => this.product.set(products[0]));
+        this.api.getProduct(this.route.snapshot.params['slug']).subscribe({
+            next: (product) => {
+                this.product.set(product);
+            },
+        });
     }
 }

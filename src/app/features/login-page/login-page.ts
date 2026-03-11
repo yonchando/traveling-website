@@ -24,12 +24,12 @@ export class LoginPage {
     password = signal('');
 
     login() {
-        sessionStorage.setItem('username', this.username());
-
-        this.http.get(`${environment.apiUrl}/login?username=${this.username()}&password=${this.password()}`).subscribe({
-            next: (res) => {},
+        this.authService.login(this.username()).subscribe((user) => {
+            if (user && user.password === this.password()) {
+                this.authService.user.set(user);
+                sessionStorage.setItem('user', JSON.stringify(user));
+                this.router.navigate(['/']);
+            }
         });
-
-        window.history.back();
     }
 }

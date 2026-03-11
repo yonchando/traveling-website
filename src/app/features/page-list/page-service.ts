@@ -1,50 +1,49 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { Product } from '@/app/interfaces/product-interface';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ApiService } from '@/app/shared/services';
+import { Category } from '@/app/interfaces/category-interface';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PageService {
-    private categories$ = new BehaviorSubject<string[]>([]);
-    private cities$ = new BehaviorSubject<string[]>([]);
-    private countries$ = new BehaviorSubject<string[]>([]);
-    min = signal(0);
-    max = signal(0);
+    api = inject(ApiService);
+    router = inject(Router);
 
-    products = signal<Product[]>([]);
+    categoryCodes = signal<string[]>([]);
+    countryCodes = signal<string[]>([]);
+    minPrice = signal<string>('');
+    maxPrice = signal<string>('');
+    page = signal(1);
+    lastPage = signal(1);
 
-    private updateArray<T>(data: Array<T>, value: T) {
-        let items = [...data];
-
-        const index = items.indexOf(value);
-
-        if (index != -1) {
-            items = items.filter((item) => item != value);
-        } else {
-            items.push(value);
-        }
-
-        return [...items];
+    getProducts(page: number = 1, params?: Record<string, any>) {
+        return this.api.getProducts(page, 10, params);
     }
 
-    getCategories() {
-        return this.categories$;
-    }
-    getCities() {
-        return this.cities$;
-    }
-    getCountries() {
-        return this.countries$;
+    reload() {
+        this.router.navigate(['/page-list'], {
+            queryParams: {
+                category: this.categoryCodes(),
+                country: this.countryCodes(),
+                minPrice: this.minPrice(),
+                maxPrice: this.maxPrice(),
+                page: this.page(),
+            },
+        });
     }
 
-    setCategory(category: string) {
-        this.categories$.next([...this.updateArray(this.categories$.value, category)]);
+    clearFilter() {
+        this.categoryCodes.set([]);
+        this.countryCodes.set([]);
+        this.minPrice.set('');
+        this.maxPrice.set('');
+        this.page.set(1);
+
+        this.reload();
     }
-    setCity(city: string) {
-        this.cities$.next([...this.updateArray(this.cities$.value, city)]);
-    }
-    setCountry(country: string) {
-        this.countries$.next([...this.updateArray(this.countries$.value, country)]);
-    }
+
+    isLasPage = computed(() => this.page() === this.lastPage());
 }

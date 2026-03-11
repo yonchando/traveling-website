@@ -1,0 +1,73 @@
+<app-slider src="assets/images/home/home-slide.png" bottomClassName="bg-white">
+    <div class="text-center text-white">
+        <h2 class="text-7xl font-semibold">Login</h2>
+    </div>
+</app-slider>
+
+<div class="content gap-10 px-4 md:px-10">
+    <div class="mx-auto max-w-2xl rounded-2xl bg-secondary px-20 py-8">
+        <div class="flex flex-col items-center justify-center gap-2">
+            <h2 class="header header-2 text-warning">Login</h2>
+            <p class="mt-6">Please input your username and password.</p>
+
+            <form (ngSubmit)="register()" class="w-full" [formGroup]="registerForm">
+                <div class="mt-8 flex flex-col gap-6">
+                    <div>
+                        <label class="mb-2 block">Name</label>
+                        <app-input formControlName="name" name="name" placeholder="Name" />
+                        @if (isValid(name)) {
+                            <span class="text-red-500">Name is required</span>
+                        }
+                    </div>
+                    <div>
+                        <label class="mb-2 block">Username</label>
+                        <app-input formControlName="username" name="username" placeholder="Username" />
+                        @if (isValid(username)) {
+                            @if (username.errors && username.errors['required']) {
+                                <span class="text-red-500">Username is required</span>
+                            }
+
+                            @if (username.errors && username.errors['exists']) {
+                                <span class="text-red-500">{{ username.errors['exists'] }}</span>
+                            }
+                        }
+                    </div>
+                    <div>
+                        <label class="mb-2 block">Password</label>
+                        <app-input formControlName="password" name="password" placeholder="Password" type="password" />
+                        @if (isValid(password)) {
+                            @if (password.errors && password.errors['required']) {
+                                <span class="text-red-500">Password is required</span>
+                            }
+                        }
+                    </div>
+                    <div>
+                        <label class="mb-2 block">Confirm Password</label>
+                        <app-input
+                            formControlName="passwordConfirmation"
+                            name="password_confirmation"
+                            placeholder="Confirm Password"
+                            type="password" />
+                        @if (isValid(passwordConfirmation)) {
+                            @if (passwordConfirmation.errors && passwordConfirmation.errors['required']) {
+                                <span class="text-red-500">Password confirm is required</span>
+                            }
+
+                            @if (passwordConfirmation.errors && passwordConfirmation.errors['not_matched']) {
+                                <span class="text-red-500">{{ passwordConfirmation.errors['not_matched'] }}</span>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <app-button type="submit" severity="primary" className="mt-8 w-full">Register</app-button>
+            </form>
+
+            <span class="">or</span>
+
+            <div class="flex flex-col gap-6">
+                <app-button routerLink="/login" type="button" severity="warning" className="w-full"> Login</app-button>
+            </div>
+        </div>
+    </div>
+</div>

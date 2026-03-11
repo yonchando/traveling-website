@@ -48,9 +48,7 @@ export class Home implements OnInit {
         return this.products();
     });
 
-    travelArticles = computed(() => {
-        return this.products().slice(8, 8 + 12);
-    });
+    travelArticles = signal<Product[]>([]);
 
     ngOnInit() {
         this.productService
@@ -79,6 +77,10 @@ export class Home implements OnInit {
 
         this.productService.getProducts(0, 8).subscribe((res) => {
             this.popularTours.set(res.data);
+        });
+
+        this.productService.getProducts(0, 12).subscribe((res) => {
+            this.travelArticles.set(res.data);
         });
     }
 

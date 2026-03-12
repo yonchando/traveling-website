@@ -1,5 +1,5 @@
-import { Component, computed, forwardRef, input, model, output, signal } from '@angular/core';
-import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, Component, computed, forwardRef, input, model, output, signal } from '@angular/core';
+import { ControlValueAccessor, DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import clsx from 'clsx';
 
 @Component({
@@ -15,21 +15,36 @@ import clsx from 'clsx';
         },
     ],
 })
-export class Input extends DefaultValueAccessor {
+export class Input implements ControlValueAccessor {
     type = input('text');
     id = input('');
     className = input('');
     placeholder = input('');
     name = input('');
+    readonly = input(false, { transform: booleanAttribute });
+    disabled = model<boolean>(false);
     value = model('');
     getClassName = computed(() => clsx('form-input', this.className()));
 
     typing = output<{
-        e: Event,
-        value: string,
+        e: Event;
+        value: string;
     }>();
 
-    override writeValue(value: string): void {
+    onChange = (value: string) => {};
+    onTouched = () => {};
+
+    registerOnChange(fn: any): void {
+        this.onChange = fn;
+    }
+    registerOnTouched(fn: any): void {
+        this.onTouched = fn;
+    }
+    setDisabledState?(isDisabled: boolean): void {
+        this.disabled.set(isDisabled);
+    }
+
+    writeValue(value: string): void {
         this.value.set(value);
     }
 

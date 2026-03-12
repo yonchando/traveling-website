@@ -1,0 +1,85 @@
+<h2 class="header header-2">User Information</h2>
+
+@if (message() != '') {
+    <div class="mt-8 bg-green-500 p-4 rounded-lg text-white font-semibold">
+        {{ message() }}
+    </div>
+}
+
+<div class="mt-10 grid grid-cols-12">
+    @if (isEdit()) {
+        <div class="flex col-span-12">
+
+            <form (ngSubmit)="update()" [formGroup]="form">
+                <div class="mt-4 flex items-center gap-4">
+                    <label>Username:</label>
+                    <app-input [value]="user()?.username ?? ''" [disabled]="true"
+                        class="text-base font-semibold"></app-input>
+
+                </div>
+                <div class="mt-4 flex items-center gap-4">
+                    <label>Name:</label>
+                    <app-input formControlName="name" class="text-base font-semibold"></app-input>
+
+                    @if (isInvalid(name)) {
+                        @if (name.hasError('required')) {
+                            <span class="text-sm text-warning">Name is required</span>
+                        }
+                    }
+                </div>
+                <div class="mt-4 flex items-center gap-4">
+                    <label>Email:</label>
+                    <app-input formControlName="email" class="text-base font-semibold"></app-input>
+
+                    @if (isInvalid(email)) {
+                        @if (email.hasError('required')) {
+                            <span class="text-sm text-warning">Email is required</span>
+                        }
+
+                        @if (email.hasError('email')) {
+                            <span class="text-sm text-warning">Email must be a valid mail.</span>
+                        }
+                    }
+                </div>
+                <div class="mt-4 flex items-center gap-4">
+                    <label>Phone:</label>
+                    <app-input formControlName="phone" class="text-base font-semibold"></app-input>
+
+                    @if (isInvalid(phone)) {
+                        @if (phone.hasError('required')) {
+                            <span class="text-sm text-warning">Phone is required</span>
+                        }
+                    }
+                </div>
+
+                <div class="mt-6 flex gap-4">
+                    <app-button type="submit" severity="primary">Update</app-button>
+                    <app-button severity="warning" (btnClick)="cancel()">Cancel</app-button>
+                </div>
+            </form>
+        </div>
+    } @else {
+        <div class="col-span-12">
+            <div class="mt-4 flex items-center gap-4">
+                <span>Username:</span>
+                <span class="text-base font-semibold">{{ user()?.username }}</span>
+            </div>
+            <div class="mt-4 flex items-center gap-4">
+                <span>Name:</span>
+                <span class="text-base font-semibold">{{ user()?.name }}</span>
+            </div>
+            <div class="mt-4 flex items-center gap-4">
+                <span>Email:</span>
+                <span class="text-base font-semibold">{{ user()?.email }}</span>
+            </div>
+            <div class="mt-4 flex items-center gap-4">
+                <span>Phone:</span>
+                <span class="text-base font-semibold">{{ user()?.phone }}</span>
+            </div>
+        </div>
+
+        <div class="col-span-12 mt-8">
+            <app-button severity="primary" (btnClick)="edit()"> Edit profile</app-button>
+        </div>
+    }
+</div>

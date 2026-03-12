@@ -20,16 +20,25 @@ export class LoginPage {
     router = inject(Router);
     http = inject(HttpClient);
 
+    message = signal('');
+
     username = signal('');
     password = signal('');
 
     login() {
-        this.authService.login(this.username()).subscribe((user) => {
-            if (user && user.password === this.password()) {
-                this.authService.user.set(user);
-                sessionStorage.setItem('user', JSON.stringify(user));
-                this.router.navigate(['/']);
-            }
+        this.authService.login(this.username()).subscribe({
+            next: (user) => {
+                if (user && user.password === this.password()) {
+                    sessionStorage.setItem('user', JSON.stringify(user));
+
+                    console.log(user);
+                    this.authService.user.set(user);
+                    this.router.navigate(['/']);
+                } else {
+                    this.message.set('Invalid username or password');
+                    setTimeout(() => this.message.set(''), 3000);
+                }
+            },
         });
     }
 }

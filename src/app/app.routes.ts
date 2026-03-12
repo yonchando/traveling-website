@@ -34,6 +34,14 @@ export const routes: Routes = [
                 loadComponent: () => import('./features/user-profile/user-profile').then((m) => m.UserProfile),
             },
             {
+                path: 'profile/change-password',
+                canActivate: [authRequiredGuard],
+                loadComponent: () =>
+                    import('./features/user-profile/user-change-password/user-change-password').then(
+                        (m) => m.UserChangePassword,
+                    ),
+            },
+            {
                 path: 'sign-up',
                 loadComponent: () => import('./features/sign-up/sign-up').then((m) => m.SignUp),
             },

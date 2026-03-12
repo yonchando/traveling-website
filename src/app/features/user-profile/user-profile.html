@@ -6,44 +6,10 @@
 
 <div class="content grid grid-cols-12 gap-10 px-4 md:px-10">
     <div class="col-span-3 rounded-xl bg-secondary-200 p-4">
-        <div class="border-b border-b-gray-200 pb-4">
-            <button class="header header-4 btn-trigger text-warning">Information</button>
-        </div>
-        <div class="mt-4 border-b border-b-gray-200 pb-4">
-            <button class="header header-4 btn-trigger">Change Password</button>
-        </div>
-        <div class="mt-4 border-b border-b-gray-200 pb-4">
-            <button class="header header-4 btn-trigger">Settings</button>
-        </div>
+        <app-user-nav />
     </div>
 
     <div class="col-span-9">
-        <h2 class="header header-2">User Information</h2>
-
-        <div class="mt-10 grid grid-cols-12">
-            <div class="col-span-9">
-                <div class="mt-4 flex items-center gap-4">
-                    <span>Username:</span>
-                    <span class="text-base font-semibold">{{ user()?.username }}</span>
-                </div>
-                <div class="mt-4 flex items-center gap-4">
-                    <span>Name:</span>
-                    <span class="text-base font-semibold">{{ user()?.name }}</span>
-                </div>
-                <div class="mt-4 flex items-center gap-4">
-                    <span>Email:</span>
-                    <span class="text-base font-semibold">{{ user()?.email }}</span>
-                </div>
-                <div class="mt-4 flex items-center gap-4">
-                    <span>Phone:</span>
-                    <span class="text-base font-semibold">{{ user()?.phone }}</span>
-                </div>
-            </div>
-            <div class="col-span-3 flex items-center justify-center overflow-hidden rounded-full">
-                @if (user().avatar) {
-                    <img class="w-full" [ngSrc]="user()?.avatar" alt="" width="250" height="250" loading="lazy" />
-                }
-            </div>
-        </div>
+        <app-user-info [user]="user()"></app-user-info>
     </div>
 </div>

@@ -43,7 +43,7 @@ export class Select implements ControlValueAccessor {
     getButtonClass = computed(() => {
         return clsx(
             {},
-            'h-12 w-full rounded-lg border border-secondary-100 bg-white px-4 text-left font-medium text-dark caret-warning relative',
+            'relative h-12 w-full rounded-lg border border-secondary-100 bg-white px-4 text-left font-medium text-dark caret-warning',
         );
     });
 
@@ -61,6 +61,7 @@ export class Select implements ControlValueAccessor {
     onTouched = () => {};
 
     writeValue(obj: any): void {
+        console.log(obj);
         this.value.set(obj);
     }
     registerOnChange(fn: any): void {

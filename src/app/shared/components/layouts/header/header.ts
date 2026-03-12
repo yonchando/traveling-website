@@ -21,6 +21,7 @@ type MenuItem = {
 })
 export class Header {
     router = inject(Router);
+    authService = inject(AuthService);
 
     mobileMenuOpen = signal(false);
     profileDropdown = signal(false);
@@ -28,6 +29,7 @@ export class Header {
     dropDownMenu = viewChild('dropdown', { read: ElementRef<HTMLDivElement> });
 
     menuItems = computed<MenuItem[]>(() => {
+        const username = this.authService.user() ? this.authService.user()!.username : '';
         return [
             {
                 label: 'Explore ',
@@ -83,15 +85,14 @@ export class Header {
                     </defs>
                     </svg>
                     `,
-                hide: this.username() !== '' ? true : undefined,
+                hide: username != '',
                 active: true,
             },
         ];
     });
 
     username = computed(() => {
-        const user = sessionStorage.getItem('user');
-        return user ? JSON.parse(user).username : '';
+        return this.authService.user()?.username ?? '';
     });
 
     getFirstCharacter = computed(() => this.username().charAt(0).toLowerCase());
@@ -126,8 +127,10 @@ export class Header {
         }
     }
 
-    async logout() {
+    logout() {
         sessionStorage.removeItem('user');
-        await this.router.navigate(['/']);
+        this.authService.user.set(null);
+
+        this.router.navigateByUrl('/');
     }
 }

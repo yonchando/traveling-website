@@ -11,7 +11,7 @@ export const authRequiredGuard: CanActivateFn = () => {
         return new RedirectCommand(router.parseUrl('/login'));
     }
 
-    authService.user = JSON.parse(user);
+    authService.user.set(JSON.parse(user));
 
     return true;
 };

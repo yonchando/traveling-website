@@ -1,20 +1,19 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Slider } from '@/app/shared/components/slider/slider';
-import { faker } from '@faker-js/faker/locale/en';
-import { User } from '@/app/interfaces/user-interface';
-import { NgOptimizedImage } from '@angular/common';
+import { UserInfo } from '@/app/features/user-profile/user-info/user-info';
+import { UserNav } from '@/app/features/user-profile/user-nav/user-nav';
 import { AuthService } from '@/app/shared/services';
 
 @Component({
     selector: 'app-user-profile',
-    imports: [Slider, NgOptimizedImage],
+    imports: [Slider, UserInfo, UserNav],
     templateUrl: './user-profile.html',
     styleUrl: './user-profile.css',
 })
 export class UserProfile {
-    user = computed(() => {
-        const user = sessionStorage.getItem('user');
+    authService = inject(AuthService);
 
-        return user ? JSON.parse(user) : null;
+    user = computed(() => {
+        return this.authService.user();
     });
 }
